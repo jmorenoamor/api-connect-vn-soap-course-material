@@ -3,7 +3,7 @@ info:
   title: Calculator
   description: ''
   x-ibm-name: calculator
-  version: 1.0.1
+  version: 1.0.0
 schemes:
   - https
 basePath: /Calculator
