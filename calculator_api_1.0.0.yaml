@@ -1,1718 +1,1952 @@
----
-swagger: "2.0"
+swagger: '2.0'
 info:
-  title: "Calculator"
-  description: ""
-  x-ibm-name: "calculator"
-  version: "1.0.0"
+  title: Calculator
+  description: ''
+  x-ibm-name: calculator
+  version: 1.0.1
 schemes:
-- "https"
-basePath: "/Calculator"
+  - https
+basePath: /Calculator
 produces:
-- "application/xml"
+  - application/xml
 consumes:
-- "text/xml"
+  - text/xml
 securityDefinitions:
   clientID:
-    type: "apiKey"
-    name: "X-IBM-Client-Id"
-    in: "header"
-    description: ""
+    type: apiKey
+    name: X-IBM-Client-Id
+    in: header
+    description: ''
 security:
-- clientID: []
+  - clientID: []
 x-ibm-configuration:
-  type: "wsdl"
-  phase: "realized"
+  type: wsdl
+  phase: realized
   enforced: true
   testable: true
-  gateway: "datapower-gateway"
+  gateway: datapower-gateway
   cors:
     enabled: true
   wsdl-definition:
-    wsdl: "http://www.dneonline.com/calculator.asmx?WSDL"
-    service: "Calculator"
-    port: "CalculatorSoap"
-    soap-version: "1.1"
+    wsdl: 'http://www.dneonline.com/calculator.asmx?WSDL'
+    service: Calculator
+    port: CalculatorSoap
+    soap-version: '1.1'
   assembly:
     execute:
-    - operation-switch:
-        title: "operation-switch"
-        case:
-        - operations:
-          - "Add"
-          execute:
-          - map:
-              title: "Map"
-              inputs:
-                body:
-                  schema:
-                    $ref: "#/definitions/AddInput"
-                  variable: "request.body"
-                  content: "application/xml"
-              outputs:
-                request:
-                  schema:
-                    $ref: "#/definitions/AddInput"
-                  variable: "message.body"
-                  content: "text/xml"
-              actions:
-              - set: "request.Envelope.Body.Add.intA"
-                from: "body.Envelope.Body.Add.intA"
-              - set: "request.Envelope.Body.Add.intB"
-                from: "body.Envelope.Body.Add.intB"
-              version: "1.0.0"
-              options: {}
-        - operations:
-          - "Subtract"
-          execute:
-          - map:
-              title: "Map"
-              inputs:
-                body:
-                  schema:
-                    $ref: "#/definitions/SubtractInput"
-                  variable: "request.body"
-                  content: "application/xml"
-              outputs:
-                request:
-                  schema:
-                    $ref: "#/definitions/SubtractInput"
-                  variable: "message.body"
-                  content: "text/xml"
-              actions:
-              - set: "request.Envelope.Body.Subtract.intA"
-                from: "body.Envelope.Body.Subtract.intA"
-              - set: "request.Envelope.Body.Subtract.intB"
-                from: "body.Envelope.Body.Subtract.intB"
-              version: "1.0.0"
-              options: {}
-        - operations:
-          - "Multiply"
-          execute:
-          - map:
-              title: "Map"
-              inputs:
-                body:
-                  schema:
-                    $ref: "#/definitions/MultiplyInput"
-                  variable: "request.body"
-                  content: "application/xml"
-              outputs:
-                request:
-                  schema:
-                    $ref: "#/definitions/MultiplyInput"
-                  variable: "message.body"
-                  content: "text/xml"
-              actions:
-              - set: "request.Envelope.Body.Multiply.intA"
-                from: "body.Envelope.Body.Multiply.intA"
-              - set: "request.Envelope.Body.Multiply.intB"
-                from: "body.Envelope.Body.Multiply.intB"
-              version: "1.0.0"
-              options: {}
-        - operations:
-          - "Divide"
-          execute:
-          - map:
-              title: "Map"
-              inputs:
-                body:
-                  schema:
-                    $ref: "#/definitions/DivideInput"
-                  variable: "request.body"
-                  content: "application/xml"
-              outputs:
-                request:
-                  schema:
-                    $ref: "#/definitions/DivideInput"
-                  variable: "message.body"
-                  content: "text/xml"
-              actions:
-              - set: "request.Envelope.Body.Divide.intA"
-                from: "body.Envelope.Body.Divide.intA"
-              - set: "request.Envelope.Body.Divide.intB"
-                from: "body.Envelope.Body.Divide.intB"
-              version: "1.0.0"
-              options: {}
-        - operations:
-          - "Square"
-          execute: []
-        otherwise: []
-        version: "1.0.0"
-    - invoke:
-        title: "Invoke"
-        timeout: 60
-        verb: "POST"
-        cache-response: "protocol"
-        cache-ttl: 900
-        stop-on-error:
-        - null
-        version: "1.0.0"
-        target-url: "http://www.dneonline.com/calculator.asmx"
+      - operation-switch:
+          title: operation-switch
+          case:
+            - operations:
+                - Add
+              execute:
+                - map:
+                    title: Map
+                    inputs:
+                      body:
+                        schema:
+                          $ref: '#/definitions/AddInput'
+                        variable: request.body
+                        content: application/xml
+                    outputs:
+                      request:
+                        schema:
+                          $ref: '#/definitions/AddInput'
+                        variable: message.body
+                        content: text/xml
+                    actions:
+                      - set: request.Envelope.Body.Add.intA
+                        from: body.Envelope.Body.Add.intA
+                      - set: request.Envelope.Body.Add.intB
+                        from: body.Envelope.Body.Add.intB
+                    version: 1.0.0
+                    options: {}
+            - operations:
+                - Subtract
+              execute:
+                - map:
+                    title: Map
+                    inputs:
+                      body:
+                        schema:
+                          $ref: '#/definitions/SubtractInput'
+                        variable: request.body
+                        content: application/xml
+                    outputs:
+                      request:
+                        schema:
+                          $ref: '#/definitions/SubtractInput'
+                        variable: message.body
+                        content: text/xml
+                    actions:
+                      - set: request.Envelope.Body.Subtract.intA
+                        from: body.Envelope.Body.Subtract.intA
+                      - set: request.Envelope.Body.Subtract.intB
+                        from: body.Envelope.Body.Subtract.intB
+                    version: 1.0.0
+                    options: {}
+            - operations:
+                - Multiply
+              execute:
+                - map:
+                    title: Map
+                    inputs:
+                      body:
+                        schema:
+                          $ref: '#/definitions/MultiplyInput'
+                        variable: request.body
+                        content: application/xml
+                    outputs:
+                      request:
+                        schema:
+                          $ref: '#/definitions/MultiplyInput'
+                        variable: message.body
+                        content: text/xml
+                    actions:
+                      - set: request.Envelope.Body.Multiply.intA
+                        from: body.Envelope.Body.Multiply.intA
+                      - set: request.Envelope.Body.Multiply.intB
+                        from: body.Envelope.Body.Multiply.intB
+                    version: 1.0.0
+                    options: {}
+            - operations:
+                - Divide
+              execute:
+                - map:
+                    title: Map
+                    inputs:
+                      body:
+                        schema:
+                          $ref: '#/definitions/DivideInput'
+                        variable: request.body
+                        content: application/xml
+                    outputs:
+                      request:
+                        schema:
+                          $ref: '#/definitions/DivideInput'
+                        variable: message.body
+                        content: text/xml
+                    actions:
+                      - set: request.Envelope.Body.Divide.intA
+                        from: body.Envelope.Body.Divide.intA
+                      - set: request.Envelope.Body.Divide.intB
+                        from: body.Envelope.Body.Divide.intB
+                    version: 1.0.0
+                    options: {}
+            - operations:
+                - Square
+              execute: []
+          otherwise: []
+          version: 1.0.0
+      - invoke:
+          title: Invoke
+          timeout: 60
+          verb: POST
+          cache-response: protocol
+          cache-ttl: 900
+          stop-on-error:
+            - null
+          version: 1.0.0
+          target-url: 'http://www.dneonline.com/calculator.asmx'
     catch: []
   x-ibm-apiconnect-wsdl:
-    package-version: "1.8.23"
+    package-version: 1.8.23
     options: {}
     messages:
       info:
-      - message: "The wsdl 'service' has multiple 'ports'. The api is generated using\
-          \ information in the first soap 'port'."
+        - message: The wsdl 'service' has multiple 'ports'. The api is generated using information in the first soap 'port'.
       warning: []
       error: []
   targets:
     Calculator:
-      swagger: "2.0"
+      swagger: '2.0'
       info:
-        title: "Calculator"
-        description: ""
-        x-ibm-name: "calculator-1"
-        version: "1.0.0"
+        title: Calculator
+        description: ''
+        x-ibm-name: calculator-1
+        version: 1.0.0
       schemes:
-      - "https"
-      basePath: "/Calculator"
+        - https
+      basePath: /Calculator
       produces:
-      - "application/xml"
+        - application/xml
       consumes:
-      - "text/xml"
+        - text/xml
       securityDefinitions:
         clientID:
-          type: "apiKey"
-          name: "X-IBM-Client-Id"
-          in: "header"
-          description: ""
+          type: apiKey
+          name: X-IBM-Client-Id
+          in: header
+          description: ''
       security:
-      - clientID: []
+        - clientID: []
       x-ibm-configuration:
-        type: "wsdl"
-        phase: "realized"
+        type: wsdl
+        phase: realized
         enforced: true
         testable: true
-        gateway: "datapower-gateway"
+        gateway: datapower-gateway
         cors:
           enabled: true
         wsdl-definition:
-          wsdl: "5ef8ca4c0cf235e3806385f9"
-          service: "Calculator"
-          port: "CalculatorSoap"
-          soap-version: "1.1"
+          wsdl: 5ef8ca4c0cf235e3806385f9
+          service: Calculator
+          port: CalculatorSoap
+          soap-version: '1.1'
         assembly:
           execute:
-          - proxy:
-              title: "proxy"
-              target-url: "http://www.dneonline.com/calculator.asmx"
+            - proxy:
+                title: proxy
+                target-url: 'http://www.dneonline.com/calculator.asmx'
         x-ibm-apiconnect-wsdl:
-          package-version: "1.8.23"
+          package-version: 1.8.23
           options: {}
           messages:
             info:
-            - message: "The wsdl 'service' has multiple 'ports'. The api is generated\
-                \ using information in the first soap 'port'."
+              - message: The wsdl 'service' has multiple 'ports'. The api is generated using information in the first soap 'port'.
             warning: []
             error: []
       paths:
         /Add:
           post:
-            summary: "Operation Add"
-            description: "Adds two integers. This is a test WebService. ©DNE Online"
-            operationId: "Add"
+            summary: Operation Add
+            description: Adds two integers. This is a test WebService. ©DNE Online
+            operationId: Add
             x-ibm-soap:
-              soap-action: "http://tempuri.org/Add"
-              soap-operation: "{http://tempuri.org/}Add"
+              soap-action: 'http://tempuri.org/Add'
+              soap-operation: '{http://tempuri.org/}Add'
             parameters:
-            - in: "body"
-              name: "body"
-              required: true
-              schema:
-                $ref: "#/x-ibm-configuration/targets/Calculator/definitions/AddInput"
+              - in: body
+                name: body
+                required: true
+                schema:
+                  $ref: '#/x-ibm-configuration/targets/Calculator/definitions/AddInput'
             responses:
               default:
-                description: ""
+                description: ''
                 schema:
-                  $ref: "#/x-ibm-configuration/targets/Calculator/definitions/AddOutput"
+                  $ref: '#/x-ibm-configuration/targets/Calculator/definitions/AddOutput'
         /Subtract:
           post:
-            summary: "Operation Subtract"
-            description: ""
-            operationId: "Subtract"
+            summary: Operation Subtract
+            description: ''
+            operationId: Subtract
             x-ibm-soap:
-              soap-action: "http://tempuri.org/Subtract"
-              soap-operation: "{http://tempuri.org/}Subtract"
+              soap-action: 'http://tempuri.org/Subtract'
+              soap-operation: '{http://tempuri.org/}Subtract'
             parameters:
-            - in: "body"
-              name: "body"
-              required: true
-              schema:
-                $ref: "#/x-ibm-configuration/targets/Calculator/definitions/SubtractInput"
+              - in: body
+                name: body
+                required: true
+                schema:
+                  $ref: '#/x-ibm-configuration/targets/Calculator/definitions/SubtractInput'
             responses:
               default:
-                description: ""
+                description: ''
                 schema:
-                  $ref: "#/x-ibm-configuration/targets/Calculator/definitions/SubtractOutput"
+                  $ref: '#/x-ibm-configuration/targets/Calculator/definitions/SubtractOutput'
         /Multiply:
           post:
-            summary: "Operation Multiply"
-            description: ""
-            operationId: "Multiply"
+            summary: Operation Multiply
+            description: ''
+            operationId: Multiply
             x-ibm-soap:
-              soap-action: "http://tempuri.org/Multiply"
-              soap-operation: "{http://tempuri.org/}Multiply"
+              soap-action: 'http://tempuri.org/Multiply'
+              soap-operation: '{http://tempuri.org/}Multiply'
             parameters:
-            - in: "body"
-              name: "body"
-              required: true
-              schema:
-                $ref: "#/x-ibm-configuration/targets/Calculator/definitions/MultiplyInput"
+              - in: body
+                name: body
+                required: true
+                schema:
+                  $ref: '#/x-ibm-configuration/targets/Calculator/definitions/MultiplyInput'
             responses:
               default:
-                description: ""
+                description: ''
                 schema:
-                  $ref: "#/x-ibm-configuration/targets/Calculator/definitions/MultiplyOutput"
+                  $ref: '#/x-ibm-configuration/targets/Calculator/definitions/MultiplyOutput'
         /Divide:
           post:
-            summary: "Operation Divide"
-            description: ""
-            operationId: "Divide"
+            summary: Operation Divide
+            description: ''
+            operationId: Divide
             x-ibm-soap:
-              soap-action: "http://tempuri.org/Divide"
-              soap-operation: "{http://tempuri.org/}Divide"
+              soap-action: 'http://tempuri.org/Divide'
+              soap-operation: '{http://tempuri.org/}Divide'
             parameters:
-            - in: "body"
-              name: "body"
-              required: true
-              schema:
-                $ref: "#/x-ibm-configuration/targets/Calculator/definitions/DivideInput"
+              - in: body
+                name: body
+                required: true
+                schema:
+                  $ref: '#/x-ibm-configuration/targets/Calculator/definitions/DivideInput'
             responses:
               default:
-                description: ""
+                description: ''
                 schema:
-                  $ref: "#/x-ibm-configuration/targets/Calculator/definitions/DivideOutput"
+                  $ref: '#/x-ibm-configuration/targets/Calculator/definitions/DivideOutput'
         /Square:
           post:
-            summary: "Operation Square"
-            description: ""
-            operationId: "Square"
+            summary: Operation Square
+            description: ''
+            operationId: Square
             x-ibm-soap:
-              soap-action: "http://tempuri.org/Square"
-              soap-operation: "{http://tempuri.org/}Square"
+              soap-action: 'http://tempuri.org/Multipy'
+              soap-operation: '{http://tempuri.org/}Multipy'
             parameters:
-            - in: "body"
-              name: "body"
-              required: true
-              schema:
-                $ref: "#/x-ibm-configuration/targets/Calculator/definitions/SquareInput"
+              - in: body
+                name: body
+                required: true
+                schema:
+                  $ref: '#/x-ibm-configuration/targets/Calculator/definitions/SquareInput'
             responses:
               default:
-                description: ""
+                description: ''
                 schema:
-                  $ref: "#/x-ibm-configuration/targets/Calculator/definitions/SquareOutput"
+                  $ref: '#/x-ibm-configuration/targets/Calculator/definitions/SquareOutput'
       definitions:
         Security:
           xml:
-            namespace: "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
-            prefix: "wsse"
-          description: "Header for WS-Security"
-          type: "object"
+            namespace: 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd'
+            prefix: wsse
+          description: Header for WS-Security
+          type: object
           properties:
             UsernameToken:
               xml:
-                namespace: "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
-                prefix: "wsse"
-              type: "object"
+                namespace: 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd'
+                prefix: wsse
+              type: object
               properties:
                 Username:
                   xml:
-                    namespace: "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
-                    prefix: "wsse"
-                  type: "string"
+                    namespace: 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd'
+                    prefix: wsse
+                  type: string
                 Password:
                   xml:
-                    namespace: "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
-                    prefix: "wsse"
-                  type: "string"
+                    namespace: 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd'
+                    prefix: wsse
+                  type: string
                 Nonce:
                   xml:
-                    namespace: "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
-                    prefix: "wsse"
-                  type: "string"
+                    namespace: 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd'
+                    prefix: wsse
+                  type: string
                   properties:
                     EncodingType:
                       xml:
-                        namespace: ""
+                        namespace: ''
                         attribute: true
-                      type: "string"
+                      type: string
                 Created:
                   xml:
-                    namespace: "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
-                    prefix: "wsu"
-                  type: "string"
+                    namespace: 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd'
+                    prefix: wsu
+                  type: string
             Timestamp:
               xml:
-                namespace: "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
-                prefix: "wsu"
-              type: "object"
+                namespace: 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd'
+                prefix: wsu
+              type: object
               properties:
                 Created:
                   xml:
-                    namespace: "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
-                    prefix: "wsu"
-                  type: "string"
+                    namespace: 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd'
+                    prefix: wsu
+                  type: string
                 Expires:
                   xml:
-                    namespace: "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
-                    prefix: "wsu"
-                  type: "string"
+                    namespace: 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd'
+                    prefix: wsu
+                  type: string
                 Id:
                   xml:
-                    namespace: "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
-                    prefix: "wsu"
+                    namespace: 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd'
+                    prefix: wsu
                     attribute: true
-                  type: "string"
+                  type: string
         AddInput:
-          description: "Input message for wsdl operation Add"
-          type: "object"
+          description: Input message for wsdl operation Add
+          type: object
           properties:
             Envelope:
               xml:
-                namespace: "http://schemas.xmlsoap.org/soap/envelope/"
-                prefix: "soapenv"
-              type: "object"
+                namespace: 'http://schemas.xmlsoap.org/soap/envelope/'
+                prefix: soapenv
+              type: object
               properties:
                 Header:
-                  $ref: "#/x-ibm-configuration/targets/Calculator/definitions/AddHeader"
+                  $ref: '#/x-ibm-configuration/targets/Calculator/definitions/AddHeader'
                 Body:
                   xml:
-                    namespace: "http://schemas.xmlsoap.org/soap/envelope/"
-                    prefix: "soapenv"
-                  type: "object"
+                    namespace: 'http://schemas.xmlsoap.org/soap/envelope/'
+                    prefix: soapenv
+                  type: object
                   properties:
                     Add:
-                      $ref: "#/x-ibm-configuration/targets/Calculator/definitions/Add_element_tns"
+                      $ref: '#/x-ibm-configuration/targets/Calculator/definitions/Add_element_tns'
                   required:
-                  - "Add"
+                    - Add
               required:
-              - "Body"
+                - Body
           required:
-          - "Envelope"
+            - Envelope
           x-ibm-schema:
-            wsdl-port: "{http://tempuri.org/}CalculatorSoap"
-            wsdl-operation: "Add"
-            wsdl-message-direction-or-name: "AddRequest"
-          example: "\n<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\
-            >\n <soapenv:Header>\n  <!-- The Security element should be removed if\
-            \ WS-Security is not enabled on the SOAP target-url -->\n  <wsse:Security\
-            \ xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"\
-            \ xmlns:wsu=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd\"\
-            >\n   <wsse:UsernameToken>\n    <wsse:Username>string</wsse:Username>\n\
-            \    <wsse:Password>string</wsse:Password>\n    <wsse:Nonce EncodingType=\"\
-            string\">string</wsse:Nonce>\n    <wsu:Created>string</wsu:Created>\n\
-            \   </wsse:UsernameToken>\n   <wsu:Timestamp wsu:Id=\"string\">\n    <wsu:Created>string</wsu:Created>\n\
-            \    <wsu:Expires>string</wsu:Expires>\n   </wsu:Timestamp>\n  </wsse:Security>\n\
-            \ </soapenv:Header>\n <soapenv:Body>\n  <tns:Add xmlns:tns=\"http://tempuri.org/\"\
-            ><!-- mandatory -->\n   <tns:intA><!-- mandatory -->3</tns:intA>\n   <tns:intB><!--\
-            \ mandatory -->3</tns:intB>\n  </tns:Add>\n </soapenv:Body>\n</soapenv:Envelope>"
+            wsdl-port: '{http://tempuri.org/}CalculatorSoap'
+            wsdl-operation: Add
+            wsdl-message-direction-or-name: AddRequest
+          example: |-
+
+            <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+             <soapenv:Header>
+              <!-- The Security element should be removed if WS-Security is not enabled on the SOAP target-url -->
+              <wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+               <wsse:UsernameToken>
+                <wsse:Username>string</wsse:Username>
+                <wsse:Password>string</wsse:Password>
+                <wsse:Nonce EncodingType="string">string</wsse:Nonce>
+                <wsu:Created>string</wsu:Created>
+               </wsse:UsernameToken>
+               <wsu:Timestamp wsu:Id="string">
+                <wsu:Created>string</wsu:Created>
+                <wsu:Expires>string</wsu:Expires>
+               </wsu:Timestamp>
+              </wsse:Security>
+             </soapenv:Header>
+             <soapenv:Body>
+              <tns:Add xmlns:tns="http://tempuri.org/"><!-- mandatory -->
+               <tns:intA><!-- mandatory -->3</tns:intA>
+               <tns:intB><!-- mandatory -->3</tns:intB>
+              </tns:Add>
+             </soapenv:Body>
+            </soapenv:Envelope>
         AddHeader:
-          description: "Input headers for wsdl operation Add"
-          type: "object"
+          description: Input headers for wsdl operation Add
+          type: object
           properties:
             Security:
-              $ref: "#/x-ibm-configuration/targets/Calculator/definitions/Security"
+              $ref: '#/x-ibm-configuration/targets/Calculator/definitions/Security'
         AddOutput:
-          description: "Output message for wsdl operation Add"
-          type: "object"
+          description: Output message for wsdl operation Add
+          type: object
           properties:
             Envelope:
               xml:
-                namespace: "http://schemas.xmlsoap.org/soap/envelope/"
-                prefix: "soapenv"
-              type: "object"
+                namespace: 'http://schemas.xmlsoap.org/soap/envelope/'
+                prefix: soapenv
+              type: object
               properties:
                 Body:
                   xml:
-                    namespace: "http://schemas.xmlsoap.org/soap/envelope/"
-                    prefix: "soapenv"
-                  type: "object"
+                    namespace: 'http://schemas.xmlsoap.org/soap/envelope/'
+                    prefix: soapenv
+                  type: object
                   properties:
                     AddResponse:
-                      $ref: "#/x-ibm-configuration/targets/Calculator/definitions/AddResponse_element_tns"
+                      $ref: '#/x-ibm-configuration/targets/Calculator/definitions/AddResponse_element_tns'
               required:
-              - "Body"
+                - Body
           required:
-          - "Envelope"
+            - Envelope
           x-ibm-schema:
-            wsdl-port: "{http://tempuri.org/}CalculatorSoap"
-            wsdl-operation: "Add"
-            wsdl-message-direction-or-name: "AddResponse"
-          example: "\n<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\
-            >\n <soapenv:Body>\n  <tns:AddResponse xmlns:tns=\"http://tempuri.org/\"\
-            >\n   <tns:AddResult><!-- mandatory -->3</tns:AddResult>\n  </tns:AddResponse>\n\
-            \ </soapenv:Body>\n</soapenv:Envelope>"
+            wsdl-port: '{http://tempuri.org/}CalculatorSoap'
+            wsdl-operation: Add
+            wsdl-message-direction-or-name: AddResponse
+          example: |-
+
+            <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+             <soapenv:Body>
+              <tns:AddResponse xmlns:tns="http://tempuri.org/">
+               <tns:AddResult><!-- mandatory -->3</tns:AddResult>
+              </tns:AddResponse>
+             </soapenv:Body>
+            </soapenv:Envelope>
         SubtractInput:
-          description: "Input message for wsdl operation Subtract"
-          type: "object"
+          description: Input message for wsdl operation Subtract
+          type: object
           properties:
             Envelope:
               xml:
-                namespace: "http://schemas.xmlsoap.org/soap/envelope/"
-                prefix: "soapenv"
-              type: "object"
+                namespace: 'http://schemas.xmlsoap.org/soap/envelope/'
+                prefix: soapenv
+              type: object
               properties:
                 Header:
-                  $ref: "#/x-ibm-configuration/targets/Calculator/definitions/SubtractHeader"
+                  $ref: '#/x-ibm-configuration/targets/Calculator/definitions/SubtractHeader'
                 Body:
                   xml:
-                    namespace: "http://schemas.xmlsoap.org/soap/envelope/"
-                    prefix: "soapenv"
-                  type: "object"
+                    namespace: 'http://schemas.xmlsoap.org/soap/envelope/'
+                    prefix: soapenv
+                  type: object
                   properties:
                     Subtract:
-                      $ref: "#/x-ibm-configuration/targets/Calculator/definitions/Subtract_element_tns"
+                      $ref: '#/x-ibm-configuration/targets/Calculator/definitions/Subtract_element_tns'
                   required:
-                  - "Subtract"
+                    - Subtract
               required:
-              - "Body"
+                - Body
           required:
-          - "Envelope"
+            - Envelope
           x-ibm-schema:
-            wsdl-port: "{http://tempuri.org/}CalculatorSoap"
-            wsdl-operation: "Subtract"
-            wsdl-message-direction-or-name: "SubtractRequest"
-          example: "\n<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\
-            >\n <soapenv:Header>\n  <!-- The Security element should be removed if\
-            \ WS-Security is not enabled on the SOAP target-url -->\n  <wsse:Security\
-            \ xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"\
-            \ xmlns:wsu=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd\"\
-            >\n   <wsse:UsernameToken>\n    <wsse:Username>string</wsse:Username>\n\
-            \    <wsse:Password>string</wsse:Password>\n    <wsse:Nonce EncodingType=\"\
-            string\">string</wsse:Nonce>\n    <wsu:Created>string</wsu:Created>\n\
-            \   </wsse:UsernameToken>\n   <wsu:Timestamp wsu:Id=\"string\">\n    <wsu:Created>string</wsu:Created>\n\
-            \    <wsu:Expires>string</wsu:Expires>\n   </wsu:Timestamp>\n  </wsse:Security>\n\
-            \ </soapenv:Header>\n <soapenv:Body>\n  <tns:Subtract xmlns:tns=\"http://tempuri.org/\"\
-            ><!-- mandatory -->\n   <tns:intA><!-- mandatory -->3</tns:intA>\n   <tns:intB><!--\
-            \ mandatory -->3</tns:intB>\n  </tns:Subtract>\n </soapenv:Body>\n</soapenv:Envelope>"
+            wsdl-port: '{http://tempuri.org/}CalculatorSoap'
+            wsdl-operation: Subtract
+            wsdl-message-direction-or-name: SubtractRequest
+          example: |-
+
+            <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+             <soapenv:Header>
+              <!-- The Security element should be removed if WS-Security is not enabled on the SOAP target-url -->
+              <wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+               <wsse:UsernameToken>
+                <wsse:Username>string</wsse:Username>
+                <wsse:Password>string</wsse:Password>
+                <wsse:Nonce EncodingType="string">string</wsse:Nonce>
+                <wsu:Created>string</wsu:Created>
+               </wsse:UsernameToken>
+               <wsu:Timestamp wsu:Id="string">
+                <wsu:Created>string</wsu:Created>
+                <wsu:Expires>string</wsu:Expires>
+               </wsu:Timestamp>
+              </wsse:Security>
+             </soapenv:Header>
+             <soapenv:Body>
+              <tns:Subtract xmlns:tns="http://tempuri.org/"><!-- mandatory -->
+               <tns:intA><!-- mandatory -->3</tns:intA>
+               <tns:intB><!-- mandatory -->3</tns:intB>
+              </tns:Subtract>
+             </soapenv:Body>
+            </soapenv:Envelope>
         SubtractHeader:
-          description: "Input headers for wsdl operation Subtract"
-          type: "object"
+          description: Input headers for wsdl operation Subtract
+          type: object
           properties:
             Security:
-              $ref: "#/x-ibm-configuration/targets/Calculator/definitions/Security"
+              $ref: '#/x-ibm-configuration/targets/Calculator/definitions/Security'
         SubtractOutput:
-          description: "Output message for wsdl operation Subtract"
-          type: "object"
+          description: Output message for wsdl operation Subtract
+          type: object
           properties:
             Envelope:
               xml:
-                namespace: "http://schemas.xmlsoap.org/soap/envelope/"
-                prefix: "soapenv"
-              type: "object"
+                namespace: 'http://schemas.xmlsoap.org/soap/envelope/'
+                prefix: soapenv
+              type: object
               properties:
                 Body:
                   xml:
-                    namespace: "http://schemas.xmlsoap.org/soap/envelope/"
-                    prefix: "soapenv"
-                  type: "object"
+                    namespace: 'http://schemas.xmlsoap.org/soap/envelope/'
+                    prefix: soapenv
+                  type: object
                   properties:
                     SubtractResponse:
-                      $ref: "#/x-ibm-configuration/targets/Calculator/definitions/SubtractResponse_element_tns"
+                      $ref: '#/x-ibm-configuration/targets/Calculator/definitions/SubtractResponse_element_tns'
               required:
-              - "Body"
+                - Body
           required:
-          - "Envelope"
+            - Envelope
           x-ibm-schema:
-            wsdl-port: "{http://tempuri.org/}CalculatorSoap"
-            wsdl-operation: "Subtract"
-            wsdl-message-direction-or-name: "SubtractResponse"
-          example: "\n<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\
-            >\n <soapenv:Body>\n  <tns:SubtractResponse xmlns:tns=\"http://tempuri.org/\"\
-            >\n   <tns:SubtractResult><!-- mandatory -->3</tns:SubtractResult>\n \
-            \ </tns:SubtractResponse>\n </soapenv:Body>\n</soapenv:Envelope>"
+            wsdl-port: '{http://tempuri.org/}CalculatorSoap'
+            wsdl-operation: Subtract
+            wsdl-message-direction-or-name: SubtractResponse
+          example: |-
+
+            <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+             <soapenv:Body>
+              <tns:SubtractResponse xmlns:tns="http://tempuri.org/">
+               <tns:SubtractResult><!-- mandatory -->3</tns:SubtractResult>
+              </tns:SubtractResponse>
+             </soapenv:Body>
+            </soapenv:Envelope>
         MultiplyInput:
-          description: "Input message for wsdl operation Multiply"
-          type: "object"
+          description: Input message for wsdl operation Multiply
+          type: object
           properties:
             Envelope:
               xml:
-                namespace: "http://schemas.xmlsoap.org/soap/envelope/"
-                prefix: "soapenv"
-              type: "object"
+                namespace: 'http://schemas.xmlsoap.org/soap/envelope/'
+                prefix: soapenv
+              type: object
               properties:
                 Header:
-                  $ref: "#/x-ibm-configuration/targets/Calculator/definitions/MultiplyHeader"
+                  $ref: '#/x-ibm-configuration/targets/Calculator/definitions/MultiplyHeader'
                 Body:
                   xml:
-                    namespace: "http://schemas.xmlsoap.org/soap/envelope/"
-                    prefix: "soapenv"
-                  type: "object"
+                    namespace: 'http://schemas.xmlsoap.org/soap/envelope/'
+                    prefix: soapenv
+                  type: object
                   properties:
                     Multiply:
-                      $ref: "#/x-ibm-configuration/targets/Calculator/definitions/Multiply_element_tns"
+                      $ref: '#/x-ibm-configuration/targets/Calculator/definitions/Multiply_element_tns'
                   required:
-                  - "Multiply"
+                    - Multiply
               required:
-              - "Body"
+                - Body
           required:
-          - "Envelope"
+            - Envelope
           x-ibm-schema:
-            wsdl-port: "{http://tempuri.org/}CalculatorSoap"
-            wsdl-operation: "Multiply"
-            wsdl-message-direction-or-name: "MultiplyRequest"
-          example: "\n<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\
-            >\n <soapenv:Header>\n  <!-- The Security element should be removed if\
-            \ WS-Security is not enabled on the SOAP target-url -->\n  <wsse:Security\
-            \ xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"\
-            \ xmlns:wsu=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd\"\
-            >\n   <wsse:UsernameToken>\n    <wsse:Username>string</wsse:Username>\n\
-            \    <wsse:Password>string</wsse:Password>\n    <wsse:Nonce EncodingType=\"\
-            string\">string</wsse:Nonce>\n    <wsu:Created>string</wsu:Created>\n\
-            \   </wsse:UsernameToken>\n   <wsu:Timestamp wsu:Id=\"string\">\n    <wsu:Created>string</wsu:Created>\n\
-            \    <wsu:Expires>string</wsu:Expires>\n   </wsu:Timestamp>\n  </wsse:Security>\n\
-            \ </soapenv:Header>\n <soapenv:Body>\n  <tns:Multiply xmlns:tns=\"http://tempuri.org/\"\
-            ><!-- mandatory -->\n   <tns:intA><!-- mandatory -->3</tns:intA>\n   <tns:intB><!--\
-            \ mandatory -->3</tns:intB>\n  </tns:Multiply>\n </soapenv:Body>\n</soapenv:Envelope>"
+            wsdl-port: '{http://tempuri.org/}CalculatorSoap'
+            wsdl-operation: Multiply
+            wsdl-message-direction-or-name: MultiplyRequest
+          example: |-
+
+            <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+             <soapenv:Header>
+              <!-- The Security element should be removed if WS-Security is not enabled on the SOAP target-url -->
+              <wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+               <wsse:UsernameToken>
+                <wsse:Username>string</wsse:Username>
+                <wsse:Password>string</wsse:Password>
+                <wsse:Nonce EncodingType="string">string</wsse:Nonce>
+                <wsu:Created>string</wsu:Created>
+               </wsse:UsernameToken>
+               <wsu:Timestamp wsu:Id="string">
+                <wsu:Created>string</wsu:Created>
+                <wsu:Expires>string</wsu:Expires>
+               </wsu:Timestamp>
+              </wsse:Security>
+             </soapenv:Header>
+             <soapenv:Body>
+              <tns:Multiply xmlns:tns="http://tempuri.org/"><!-- mandatory -->
+               <tns:intA><!-- mandatory -->3</tns:intA>
+               <tns:intB><!-- mandatory -->3</tns:intB>
+              </tns:Multiply>
+             </soapenv:Body>
+            </soapenv:Envelope>
         MultiplyHeader:
-          description: "Input headers for wsdl operation Multiply"
-          type: "object"
+          description: Input headers for wsdl operation Multiply
+          type: object
           properties:
             Security:
-              $ref: "#/x-ibm-configuration/targets/Calculator/definitions/Security"
+              $ref: '#/x-ibm-configuration/targets/Calculator/definitions/Security'
         MultiplyOutput:
-          description: "Output message for wsdl operation Multiply"
-          type: "object"
+          description: Output message for wsdl operation Multiply
+          type: object
           properties:
             Envelope:
               xml:
-                namespace: "http://schemas.xmlsoap.org/soap/envelope/"
-                prefix: "soapenv"
-              type: "object"
+                namespace: 'http://schemas.xmlsoap.org/soap/envelope/'
+                prefix: soapenv
+              type: object
               properties:
                 Body:
                   xml:
-                    namespace: "http://schemas.xmlsoap.org/soap/envelope/"
-                    prefix: "soapenv"
-                  type: "object"
+                    namespace: 'http://schemas.xmlsoap.org/soap/envelope/'
+                    prefix: soapenv
+                  type: object
                   properties:
                     MultiplyResponse:
-                      $ref: "#/x-ibm-configuration/targets/Calculator/definitions/MultiplyResponse_element_tns"
+                      $ref: '#/x-ibm-configuration/targets/Calculator/definitions/MultiplyResponse_element_tns'
               required:
-              - "Body"
+                - Body
           required:
-          - "Envelope"
+            - Envelope
           x-ibm-schema:
-            wsdl-port: "{http://tempuri.org/}CalculatorSoap"
-            wsdl-operation: "Multiply"
-            wsdl-message-direction-or-name: "MultiplyResponse"
-          example: "\n<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\
-            >\n <soapenv:Body>\n  <tns:MultiplyResponse xmlns:tns=\"http://tempuri.org/\"\
-            >\n   <tns:MultiplyResult><!-- mandatory -->3</tns:MultiplyResult>\n \
-            \ </tns:MultiplyResponse>\n </soapenv:Body>\n</soapenv:Envelope>"
+            wsdl-port: '{http://tempuri.org/}CalculatorSoap'
+            wsdl-operation: Multiply
+            wsdl-message-direction-or-name: MultiplyResponse
+          example: |-
+
+            <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+             <soapenv:Body>
+              <tns:MultiplyResponse xmlns:tns="http://tempuri.org/">
+               <tns:MultiplyResult><!-- mandatory -->3</tns:MultiplyResult>
+              </tns:MultiplyResponse>
+             </soapenv:Body>
+            </soapenv:Envelope>
         DivideInput:
-          description: "Input message for wsdl operation Divide"
-          type: "object"
+          description: Input message for wsdl operation Divide
+          type: object
           properties:
             Envelope:
               xml:
-                namespace: "http://schemas.xmlsoap.org/soap/envelope/"
-                prefix: "soapenv"
-              type: "object"
+                namespace: 'http://schemas.xmlsoap.org/soap/envelope/'
+                prefix: soapenv
+              type: object
               properties:
                 Header:
-                  $ref: "#/x-ibm-configuration/targets/Calculator/definitions/DivideHeader"
+                  $ref: '#/x-ibm-configuration/targets/Calculator/definitions/DivideHeader'
                 Body:
                   xml:
-                    namespace: "http://schemas.xmlsoap.org/soap/envelope/"
-                    prefix: "soapenv"
-                  type: "object"
+                    namespace: 'http://schemas.xmlsoap.org/soap/envelope/'
+                    prefix: soapenv
+                  type: object
                   properties:
                     Divide:
-                      $ref: "#/x-ibm-configuration/targets/Calculator/definitions/Divide_element_tns"
+                      $ref: '#/x-ibm-configuration/targets/Calculator/definitions/Divide_element_tns'
                   required:
-                  - "Divide"
+                    - Divide
               required:
-              - "Body"
+                - Body
           required:
-          - "Envelope"
+            - Envelope
           x-ibm-schema:
-            wsdl-port: "{http://tempuri.org/}CalculatorSoap"
-            wsdl-operation: "Divide"
-            wsdl-message-direction-or-name: "DivideRequest"
-          example: "\n<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\
-            >\n <soapenv:Header>\n  <!-- The Security element should be removed if\
-            \ WS-Security is not enabled on the SOAP target-url -->\n  <wsse:Security\
-            \ xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"\
-            \ xmlns:wsu=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd\"\
-            >\n   <wsse:UsernameToken>\n    <wsse:Username>string</wsse:Username>\n\
-            \    <wsse:Password>string</wsse:Password>\n    <wsse:Nonce EncodingType=\"\
-            string\">string</wsse:Nonce>\n    <wsu:Created>string</wsu:Created>\n\
-            \   </wsse:UsernameToken>\n   <wsu:Timestamp wsu:Id=\"string\">\n    <wsu:Created>string</wsu:Created>\n\
-            \    <wsu:Expires>string</wsu:Expires>\n   </wsu:Timestamp>\n  </wsse:Security>\n\
-            \ </soapenv:Header>\n <soapenv:Body>\n  <tns:Divide xmlns:tns=\"http://tempuri.org/\"\
-            ><!-- mandatory -->\n   <tns:intA><!-- mandatory -->3</tns:intA>\n   <tns:intB><!--\
-            \ mandatory -->3</tns:intB>\n  </tns:Divide>\n </soapenv:Body>\n</soapenv:Envelope>"
+            wsdl-port: '{http://tempuri.org/}CalculatorSoap'
+            wsdl-operation: Divide
+            wsdl-message-direction-or-name: DivideRequest
+          example: |-
+
+            <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+             <soapenv:Header>
+              <!-- The Security element should be removed if WS-Security is not enabled on the SOAP target-url -->
+              <wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+               <wsse:UsernameToken>
+                <wsse:Username>string</wsse:Username>
+                <wsse:Password>string</wsse:Password>
+                <wsse:Nonce EncodingType="string">string</wsse:Nonce>
+                <wsu:Created>string</wsu:Created>
+               </wsse:UsernameToken>
+               <wsu:Timestamp wsu:Id="string">
+                <wsu:Created>string</wsu:Created>
+                <wsu:Expires>string</wsu:Expires>
+               </wsu:Timestamp>
+              </wsse:Security>
+             </soapenv:Header>
+             <soapenv:Body>
+              <tns:Divide xmlns:tns="http://tempuri.org/"><!-- mandatory -->
+               <tns:intA><!-- mandatory -->3</tns:intA>
+               <tns:intB><!-- mandatory -->3</tns:intB>
+              </tns:Divide>
+             </soapenv:Body>
+            </soapenv:Envelope>
         SquareInput:
-          description: "Input message for wsdl operation Square"
-          type: "object"
+          description: Input message for wsdl operation Square
+          type: object
           properties:
             Envelope:
               xml:
-                namespace: "http://schemas.xmlsoap.org/soap/envelope/"
-                prefix: "soapenv"
-              type: "object"
+                namespace: 'http://schemas.xmlsoap.org/soap/envelope/'
+                prefix: soapenv
+              type: object
               properties:
                 Header:
-                  $ref: "#/x-ibm-configuration/targets/Calculator/definitions/SquareHeader"
+                  $ref: '#/x-ibm-configuration/targets/Calculator/definitions/SquareHeader'
                 Body:
                   xml:
-                    namespace: "http://schemas.xmlsoap.org/soap/envelope/"
-                    prefix: "soapenv"
-                  type: "object"
+                    namespace: 'http://schemas.xmlsoap.org/soap/envelope/'
+                    prefix: soapenv
+                  type: object
                   properties:
                     Square:
-                      $ref: "#/x-ibm-configuration/targets/Calculator/definitions/Square_element_tns"
+                      $ref: '#/x-ibm-configuration/targets/Calculator/definitions/Square_element_tns'
                   required:
-                  - "Square"
+                    - Square
               required:
-              - "Body"
+                - Body
           required:
-          - "Envelope"
+            - Envelope
           x-ibm-schema:
-            wsdl-port: "{http://tempuri.org/}CalculatorSoap"
-            wsdl-operation: "Square"
-            wsdl-message-direction-or-name: "SquareRequest"
-          example: "\n<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\
-            >\n <soapenv:Header>\n  <!-- The Security element should be removed if\
-            \ WS-Security is not enabled on the SOAP target-url -->\n  <wsse:Security\
-            \ xmlns:wsse=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"\
-            \ xmlns:wsu=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd\"\
-            >\n   <wsse:UsernameToken>\n    <wsse:Username>string</wsse:Username>\n\
-            \    <wsse:Password>string</wsse:Password>\n    <wsse:Nonce EncodingType=\"\
-            string\">string</wsse:Nonce>\n    <wsu:Created>string</wsu:Created>\n\
-            \   </wsse:UsernameToken>\n   <wsu:Timestamp wsu:Id=\"string\">\n    <wsu:Created>string</wsu:Created>\n\
-            \    <wsu:Expires>string</wsu:Expires>\n   </wsu:Timestamp>\n  </wsse:Security>\n\
-            \ </soapenv:Header>\n <soapenv:Body>\n  <tns:Square xmlns:tns=\"http://tempuri.org/\"\
-            ><!-- mandatory -->\n   <tns:intA><!-- mandatory -->3</tns:intA>\n   <tns:intB><!--\
-            \ mandatory -->3</tns:intB>\n  </tns:Square>\n </soapenv:Body>\n</soapenv:Envelope>"
+            wsdl-port: '{http://tempuri.org/}CalculatorSoap'
+            wsdl-operation: Square
+            wsdl-message-direction-or-name: SquareRequest
+          example: |-
+
+            <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+             <soapenv:Header>
+              <!-- The Security element should be removed if WS-Security is not enabled on the SOAP target-url -->
+              <wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+               <wsse:UsernameToken>
+                <wsse:Username>string</wsse:Username>
+                <wsse:Password>string</wsse:Password>
+                <wsse:Nonce EncodingType="string">string</wsse:Nonce>
+                <wsu:Created>string</wsu:Created>
+               </wsse:UsernameToken>
+               <wsu:Timestamp wsu:Id="string">
+                <wsu:Created>string</wsu:Created>
+                <wsu:Expires>string</wsu:Expires>
+               </wsu:Timestamp>
+              </wsse:Security>
+             </soapenv:Header>
+             <soapenv:Body>
+              <tns:Square xmlns:tns="http://tempuri.org/"><!-- mandatory -->
+               <tns:intA><!-- mandatory -->3</tns:intA>
+            </tns:Square>
+             </soapenv:Body>
+            </soapenv:Envelope>
         DivideHeader:
-          description: "Input headers for wsdl operation Divide"
-          type: "object"
+          description: Input headers for wsdl operation Divide
+          type: object
           properties:
             Security:
-              $ref: "#/x-ibm-configuration/targets/Calculator/definitions/Security"
+              $ref: '#/x-ibm-configuration/targets/Calculator/definitions/Security'
         SquareHeader:
-          description: "Input headers for wsdl operation Square"
-          type: "object"
+          description: Input headers for wsdl operation Square
+          type: object
           properties:
             Security:
-              $ref: "#/x-ibm-configuration/targets/Calculator/definitions/Security"
+              $ref: '#/x-ibm-configuration/targets/Calculator/definitions/Security'
         DivideOutput:
-          description: "Output message for wsdl operation Divide"
-          type: "object"
+          description: Output message for wsdl operation Divide
+          type: object
           properties:
             Envelope:
               xml:
-                namespace: "http://schemas.xmlsoap.org/soap/envelope/"
-                prefix: "soapenv"
-              type: "object"
+                namespace: 'http://schemas.xmlsoap.org/soap/envelope/'
+                prefix: soapenv
+              type: object
               properties:
                 Body:
                   xml:
-                    namespace: "http://schemas.xmlsoap.org/soap/envelope/"
-                    prefix: "soapenv"
-                  type: "object"
+                    namespace: 'http://schemas.xmlsoap.org/soap/envelope/'
+                    prefix: soapenv
+                  type: object
                   properties:
                     DivideResponse:
-                      $ref: "#/x-ibm-configuration/targets/Calculator/definitions/DivideResponse_element_tns"
+                      $ref: '#/x-ibm-configuration/targets/Calculator/definitions/DivideResponse_element_tns'
               required:
-              - "Body"
+                - Body
           required:
-          - "Envelope"
+            - Envelope
           x-ibm-schema:
-            wsdl-port: "{http://tempuri.org/}CalculatorSoap"
-            wsdl-operation: "Divide"
-            wsdl-message-direction-or-name: "DivideResponse"
-          example: "\n<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\
-            >\n <soapenv:Body>\n  <tns:DivideResponse xmlns:tns=\"http://tempuri.org/\"\
-            >\n   <tns:DivideResult><!-- mandatory -->3</tns:DivideResult>\n  </tns:DivideResponse>\n\
-            \ </soapenv:Body>\n</soapenv:Envelope>"
+            wsdl-port: '{http://tempuri.org/}CalculatorSoap'
+            wsdl-operation: Divide
+            wsdl-message-direction-or-name: DivideResponse
+          example: |-
+
+            <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+             <soapenv:Body>
+              <tns:DivideResponse xmlns:tns="http://tempuri.org/">
+               <tns:DivideResult><!-- mandatory -->3</tns:DivideResult>
+              </tns:DivideResponse>
+             </soapenv:Body>
+            </soapenv:Envelope>
         SquareOutput:
-          description: "Output message for wsdl operation Square"
-          type: "object"
+          description: Output message for wsdl operation Square
+          type: object
           properties:
             Envelope:
               xml:
-                namespace: "http://schemas.xmlsoap.org/soap/envelope/"
-                prefix: "soapenv"
-              type: "object"
+                namespace: 'http://schemas.xmlsoap.org/soap/envelope/'
+                prefix: soapenv
+              type: object
               properties:
                 Body:
                   xml:
-                    namespace: "http://schemas.xmlsoap.org/soap/envelope/"
-                    prefix: "soapenv"
-                  type: "object"
+                    namespace: 'http://schemas.xmlsoap.org/soap/envelope/'
+                    prefix: soapenv
+                  type: object
                   properties:
                     SquareResponse:
-                      $ref: "#/x-ibm-configuration/targets/Calculator/definitions/SquareResponse_element_tns"
+                      $ref: '#/x-ibm-configuration/targets/Calculator/definitions/SquareResponse_element_tns'
               required:
-              - "Body"
+                - Body
           required:
-          - "Envelope"
+            - Envelope
           x-ibm-schema:
-            wsdl-port: "{http://tempuri.org/}CalculatorSoap"
-            wsdl-operation: "Square"
-            wsdl-message-direction-or-name: "SquareResponse"
-          example: "\n<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\
-            >\n <soapenv:Body>\n  <tns:SquareResponse xmlns:tns=\"http://tempuri.org/\"\
-            >\n   <tns:SquareResult><!-- mandatory -->3</tns:SquareResult>\n  </tns:SquareResponse>\n\
-            \ </soapenv:Body>\n</soapenv:Envelope>"
+            wsdl-port: '{http://tempuri.org/}CalculatorSoap'
+            wsdl-operation: Square
+            wsdl-message-direction-or-name: SquareResponse
+          example: |-
+
+            <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+             <soapenv:Body>
+              <tns:SquareResponse xmlns:tns="http://tempuri.org/">
+               <tns:SquareResult><!-- mandatory -->3</tns:SquareResult>
+              </tns:SquareResponse>
+             </soapenv:Body>
+            </soapenv:Envelope>
         Add_element_tns:
           xml:
-            namespace: "http://tempuri.org/"
-            prefix: "tns"
-            name: "Add"
-          type: "object"
+            namespace: 'http://tempuri.org/'
+            prefix: tns
+            name: Add
+          type: object
           properties:
             intA:
               xml:
-                namespace: "http://tempuri.org/"
-                prefix: "tns"
-              type: "integer"
-              format: "int32"
+                namespace: 'http://tempuri.org/'
+                prefix: tns
+              type: integer
+              format: int32
             intB:
               xml:
-                namespace: "http://tempuri.org/"
-                prefix: "tns"
-              type: "integer"
-              format: "int32"
+                namespace: 'http://tempuri.org/'
+                prefix: tns
+              type: integer
+              format: int32
           required:
-          - "intA"
-          - "intB"
-          example: "\n<tns:Add xmlns:tns=\"http://tempuri.org/\">\n <tns:intA><!--\
-            \ mandatory -->3</tns:intA>\n <tns:intB><!-- mandatory -->3</tns:intB>\n\
-            </tns:Add>"
+            - intA
+            - intB
+          example: |-
+
+            <tns:Add xmlns:tns="http://tempuri.org/">
+             <tns:intA><!-- mandatory -->3</tns:intA>
+             <tns:intB><!-- mandatory -->3</tns:intB>
+            </tns:Add>
         AddResponse_element_tns:
           xml:
-            namespace: "http://tempuri.org/"
-            prefix: "tns"
-            name: "AddResponse"
-          type: "object"
+            namespace: 'http://tempuri.org/'
+            prefix: tns
+            name: AddResponse
+          type: object
           properties:
             AddResult:
               xml:
-                namespace: "http://tempuri.org/"
-                prefix: "tns"
-              type: "integer"
-              format: "int32"
+                namespace: 'http://tempuri.org/'
+                prefix: tns
+              type: integer
+              format: int32
           required:
-          - "AddResult"
-          example: "\n<tns:AddResponse xmlns:tns=\"http://tempuri.org/\">\n <tns:AddResult><!--\
-            \ mandatory -->3</tns:AddResult>\n</tns:AddResponse>"
+            - AddResult
+          example: |-
+
+            <tns:AddResponse xmlns:tns="http://tempuri.org/">
+             <tns:AddResult><!-- mandatory -->3</tns:AddResult>
+            </tns:AddResponse>
         Subtract_element_tns:
           xml:
-            namespace: "http://tempuri.org/"
-            prefix: "tns"
-            name: "Subtract"
-          type: "object"
+            namespace: 'http://tempuri.org/'
+            prefix: tns
+            name: Subtract
+          type: object
           properties:
             intA:
               xml:
-                namespace: "http://tempuri.org/"
-                prefix: "tns"
-              type: "integer"
-              format: "int32"
+                namespace: 'http://tempuri.org/'
+                prefix: tns
+              type: integer
+              format: int32
             intB:
               xml:
-                namespace: "http://tempuri.org/"
-                prefix: "tns"
-              type: "integer"
-              format: "int32"
+                namespace: 'http://tempuri.org/'
+                prefix: tns
+              type: integer
+              format: int32
           required:
-          - "intA"
-          - "intB"
-          example: "\n<tns:Subtract xmlns:tns=\"http://tempuri.org/\">\n <tns:intA><!--\
-            \ mandatory -->3</tns:intA>\n <tns:intB><!-- mandatory -->3</tns:intB>\n\
-            </tns:Subtract>"
+            - intA
+            - intB
+          example: |-
+
+            <tns:Subtract xmlns:tns="http://tempuri.org/">
+             <tns:intA><!-- mandatory -->3</tns:intA>
+             <tns:intB><!-- mandatory -->3</tns:intB>
+            </tns:Subtract>
         SubtractResponse_element_tns:
           xml:
-            namespace: "http://tempuri.org/"
-            prefix: "tns"
-            name: "SubtractResponse"
-          type: "object"
+            namespace: 'http://tempuri.org/'
+            prefix: tns
+            name: SubtractResponse
+          type: object
           properties:
             SubtractResult:
               xml:
-                namespace: "http://tempuri.org/"
-                prefix: "tns"
-              type: "integer"
-              format: "int32"
+                namespace: 'http://tempuri.org/'
+                prefix: tns
+              type: integer
+              format: int32
           required:
-          - "SubtractResult"
-          example: "\n<tns:SubtractResponse xmlns:tns=\"http://tempuri.org/\">\n <tns:SubtractResult><!--\
-            \ mandatory -->3</tns:SubtractResult>\n</tns:SubtractResponse>"
+            - SubtractResult
+          example: |-
+
+            <tns:SubtractResponse xmlns:tns="http://tempuri.org/">
+             <tns:SubtractResult><!-- mandatory -->3</tns:SubtractResult>
+            </tns:SubtractResponse>
         Multiply_element_tns:
           xml:
-            namespace: "http://tempuri.org/"
-            prefix: "tns"
-            name: "Multiply"
-          type: "object"
+            namespace: 'http://tempuri.org/'
+            prefix: tns
+            name: Multiply
+          type: object
           properties:
             intA:
               xml:
-                namespace: "http://tempuri.org/"
-                prefix: "tns"
-              type: "integer"
-              format: "int32"
+                namespace: 'http://tempuri.org/'
+                prefix: tns
+              type: integer
+              format: int32
             intB:
               xml:
-                namespace: "http://tempuri.org/"
-                prefix: "tns"
-              type: "integer"
-              format: "int32"
+                namespace: 'http://tempuri.org/'
+                prefix: tns
+              type: integer
+              format: int32
           required:
-          - "intA"
-          - "intB"
-          example: "\n<tns:Multiply xmlns:tns=\"http://tempuri.org/\">\n <tns:intA><!--\
-            \ mandatory -->3</tns:intA>\n <tns:intB><!-- mandatory -->3</tns:intB>\n\
-            </tns:Multiply>"
+            - intA
+            - intB
+          example: |-
+
+            <tns:Multiply xmlns:tns="http://tempuri.org/">
+             <tns:intA><!-- mandatory -->3</tns:intA>
+             <tns:intB><!-- mandatory -->3</tns:intB>
+            </tns:Multiply>
         MultiplyResponse_element_tns:
           xml:
-            namespace: "http://tempuri.org/"
-            prefix: "tns"
-            name: "MultiplyResponse"
-          type: "object"
+            namespace: 'http://tempuri.org/'
+            prefix: tns
+            name: MultiplyResponse
+          type: object
           properties:
             MultiplyResult:
               xml:
-                namespace: "http://tempuri.org/"
-                prefix: "tns"
-              type: "integer"
-              format: "int32"
+                namespace: 'http://tempuri.org/'
+                prefix: tns
+              type: integer
+              format: int32
           required:
-          - "MultiplyResult"
-          example: "\n<tns:MultiplyResponse xmlns:tns=\"http://tempuri.org/\">\n <tns:MultiplyResult><!--\
-            \ mandatory -->3</tns:MultiplyResult>\n</tns:MultiplyResponse>"
+            - MultiplyResult
+          example: |-
+
+            <tns:MultiplyResponse xmlns:tns="http://tempuri.org/">
+             <tns:MultiplyResult><!-- mandatory -->3</tns:MultiplyResult>
+            </tns:MultiplyResponse>
         Divide_element_tns:
           xml:
-            namespace: "http://tempuri.org/"
-            prefix: "tns"
-            name: "Divide"
-          type: "object"
+            namespace: 'http://tempuri.org/'
+            prefix: tns
+            name: Divide
+          type: object
           properties:
             intA:
               xml:
-                namespace: "http://tempuri.org/"
-                prefix: "tns"
-              type: "integer"
-              format: "int32"
+                namespace: 'http://tempuri.org/'
+                prefix: tns
+              type: integer
+              format: int32
             intB:
               xml:
-                namespace: "http://tempuri.org/"
-                prefix: "tns"
-              type: "integer"
-              format: "int32"
+                namespace: 'http://tempuri.org/'
+                prefix: tns
+              type: integer
+              format: int32
           required:
-          - "intA"
-          - "intB"
-          example: "\n<tns:Divide xmlns:tns=\"http://tempuri.org/\">\n <tns:intA><!--\
-            \ mandatory -->3</tns:intA>\n <tns:intB><!-- mandatory -->3</tns:intB>\n\
-            </tns:Divide>"
+            - intA
+            - intB
+          example: |-
+
+            <tns:Divide xmlns:tns="http://tempuri.org/">
+             <tns:intA><!-- mandatory -->3</tns:intA>
+             <tns:intB><!-- mandatory -->3</tns:intB>
+            </tns:Divide>
         DivideResponse_element_tns:
           xml:
-            namespace: "http://tempuri.org/"
-            prefix: "tns"
-            name: "DivideResponse"
-          type: "object"
+            namespace: 'http://tempuri.org/'
+            prefix: tns
+            name: DivideResponse
+          type: object
           properties:
             DivideResult:
               xml:
-                namespace: "http://tempuri.org/"
-                prefix: "tns"
-              type: "integer"
-              format: "int32"
+                namespace: 'http://tempuri.org/'
+                prefix: tns
+              type: integer
+              format: int32
           required:
-          - "DivideResult"
-          example: "\n<tns:DivideResponse xmlns:tns=\"http://tempuri.org/\">\n <tns:DivideResult><!--\
-            \ mandatory -->3</tns:DivideResult>\n</tns:DivideResponse>"
+            - DivideResult
+          example: |-
+
+            <tns:DivideResponse xmlns:tns="http://tempuri.org/">
+             <tns:DivideResult><!-- mandatory -->3</tns:DivideResult>
+            </tns:DivideResponse>
         Square_element_tns:
           xml:
-            namespace: "http://tempuri.org/"
-            prefix: "tns"
-            name: "Square"
-          type: "object"
+            namespace: 'http://tempuri.org/'
+            prefix: tns
+            name: Square
+          type: object
           properties:
             intA:
               xml:
-                namespace: "http://tempuri.org/"
-                prefix: "tns"
-              type: "integer"
-              format: "int32"
+                namespace: 'http://tempuri.org/'
+                prefix: tns
+              type: integer
+              format: int32
           required:
-          - "intA"
-          example: "\n<tns:Square xmlns:tns=\"http://tempuri.org/\">\n <tns:intA><!--\
-            \ mandatory -->3</tns:intA>\n</tns:Square>"
+            - intA
+          example: |-
+
+            <tns:Square xmlns:tns="http://tempuri.org/">
+             <tns:intA><!-- mandatory -->3</tns:intA>
+            </tns:Square>
         SquareResponse_element_tns:
           xml:
-            namespace: "http://tempuri.org/"
-            prefix: "tns"
-            name: "SquareResponse"
-          type: "object"
+            namespace: 'http://tempuri.org/'
+            prefix: tns
+            name: SquareResponse
+          type: object
           properties:
             SquareResult:
               xml:
-                namespace: "http://tempuri.org/"
-                prefix: "tns"
-              type: "integer"
-              format: "int32"
+                namespace: 'http://tempuri.org/'
+                prefix: tns
+              type: integer
+              format: int32
           required:
-          - "SquareResult"
-          example: "\n<tns:SquareResponse xmlns:tns=\"http://tempuri.org/\">\n <tns:SquareResult><!--\
-            \ mandatory -->3</tns:SquareResult>\n</tns:SquareResponse>"
+            - SquareResult
+          example: |-
+
+            <tns:SquareResponse xmlns:tns="http://tempuri.org/">
+             <tns:SquareResult><!-- mandatory -->3</tns:SquareResult>
+            </tns:SquareResponse>
 paths:
   /Add:
     post:
-      summary: "Operation Add"
-      description: "Adds two integers. This is a test WebService. ©DNE Online"
-      operationId: "Add"
+      summary: Operation Add
+      description: Adds two integers. This is a test WebService. ©DNE Online
+      operationId: Add
       x-ibm-soap:
-        soap-action: "http://tempuri.org/Add"
-        soap-operation: "{http://tempuri.org/}Add"
+        soap-action: 'http://tempuri.org/Add'
+        soap-operation: '{http://tempuri.org/}Add'
       parameters:
-      - in: "body"
-        name: "body"
-        required: true
-        schema:
-          $ref: "#/definitions/AddInput"
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/AddInput'
       responses:
         default:
-          description: ""
+          description: ''
           schema:
-            $ref: "#/definitions/AddOutput"
+            $ref: '#/definitions/AddOutput'
   /Subtract:
     post:
-      summary: "Operation Subtract"
-      description: ""
-      operationId: "Subtract"
+      summary: Operation Subtract
+      description: ''
+      operationId: Subtract
       x-ibm-soap:
-        soap-action: "http://tempuri.org/Subtract"
-        soap-operation: "{http://tempuri.org/}Subtract"
+        soap-action: 'http://tempuri.org/Subtract'
+        soap-operation: '{http://tempuri.org/}Subtract'
       parameters:
-      - in: "body"
-        name: "body"
-        required: true
-        schema:
-          $ref: "#/definitions/SubtractInput"
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/SubtractInput'
       responses:
         default:
-          description: ""
+          description: ''
           schema:
-            $ref: "#/definitions/SubtractOutput"
+            $ref: '#/definitions/SubtractOutput'
   /Multiply:
     post:
-      summary: "Operation Multiply"
-      description: ""
-      operationId: "Multiply"
+      summary: Operation Multiply
+      description: ''
+      operationId: Multiply
       x-ibm-soap:
-        soap-action: "http://tempuri.org/Multiply"
-        soap-operation: "{http://tempuri.org/}Multiply"
+        soap-action: 'http://tempuri.org/Multiply'
+        soap-operation: '{http://tempuri.org/}Multiply'
       parameters:
-      - in: "body"
-        name: "body"
-        required: true
-        schema:
-          $ref: "#/definitions/MultiplyInput"
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/MultiplyInput'
       responses:
         default:
-          description: ""
+          description: ''
           schema:
-            $ref: "#/definitions/MultiplyOutput"
+            $ref: '#/definitions/MultiplyOutput'
   /Divide:
     post:
-      summary: "Operation Divide"
-      description: ""
-      operationId: "Divide"
+      summary: Operation Divide
+      description: ''
+      operationId: Divide
       x-ibm-soap:
-        soap-action: "http://tempuri.org/Divide"
-        soap-operation: "{http://tempuri.org/}Divide"
+        soap-action: 'http://tempuri.org/Divide'
+        soap-operation: '{http://tempuri.org/}Divide'
       parameters:
-      - in: "body"
-        name: "body"
-        required: true
-        schema:
-          $ref: "#/definitions/DivideInput"
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/DivideInput'
       responses:
         default:
-          description: ""
+          description: ''
           schema:
-            $ref: "#/definitions/DivideOutput"
+            $ref: '#/definitions/DivideOutput'
   /Square:
     post:
-      summary: "Operation Square"
-      description: ""
-      operationId: "Square"
+      summary: Operation Square
+      description: ''
+      operationId: Square
       x-ibm-soap:
-        soap-action: "http://tempuri.org/Square"
-        soap-operation: "{http://tempuri.org/}Square"
+        soap-action: 'http://tempuri.org/Multiply'
+        soap-operation: '{http://tempuri.org/}Multiply'
       parameters:
-      - in: "body"
-        name: "body"
-        required: true
-        schema:
-          $ref: "#/definitions/SquareInput"
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/SquareInput'
       responses:
         default:
-          description: ""
+          description: ''
           schema:
-            $ref: "#/definitions/SquareOutput"
+            $ref: '#/definitions/SquareOutput'
 definitions:
   new-definition-1:
     properties:
       new-property-1:
-        type: "string"
+        type: string
     additionalProperties: false
   Security:
     xml:
-      namespace: "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
-      prefix: "wsse"
-    description: "Header for WS-Security"
-    type: "object"
+      namespace: 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd'
+      prefix: wsse
+    description: Header for WS-Security
+    type: object
     properties:
       UsernameToken:
         xml:
-          namespace: "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
-          prefix: "wsse"
-        type: "object"
+          namespace: 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd'
+          prefix: wsse
+        type: object
         properties:
           Username:
             xml:
-              namespace: "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
-              prefix: "wsse"
-            type: "string"
+              namespace: 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd'
+              prefix: wsse
+            type: string
           Password:
             xml:
-              namespace: "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
-              prefix: "wsse"
-            type: "string"
+              namespace: 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd'
+              prefix: wsse
+            type: string
           Nonce:
             xml:
-              namespace: "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
-              prefix: "wsse"
-            type: "string"
+              namespace: 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd'
+              prefix: wsse
+            type: string
             properties:
               EncodingType:
                 xml:
-                  namespace: ""
+                  namespace: ''
                   attribute: true
-                type: "string"
+                type: string
           Created:
             xml:
-              namespace: "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
-              prefix: "wsu"
-            type: "string"
+              namespace: 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd'
+              prefix: wsu
+            type: string
       Timestamp:
         xml:
-          namespace: "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
-          prefix: "wsu"
-        type: "object"
+          namespace: 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd'
+          prefix: wsu
+        type: object
         properties:
           Created:
             xml:
-              namespace: "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
-              prefix: "wsu"
-            type: "string"
+              namespace: 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd'
+              prefix: wsu
+            type: string
           Expires:
             xml:
-              namespace: "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
-              prefix: "wsu"
-            type: "string"
+              namespace: 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd'
+              prefix: wsu
+            type: string
           Id:
             xml:
-              namespace: "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
-              prefix: "wsu"
+              namespace: 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd'
+              prefix: wsu
               attribute: true
-            type: "string"
+            type: string
   AddInput:
-    description: "Input message for wsdl operation Add"
-    type: "object"
+    description: Input message for wsdl operation Add
+    type: object
     properties:
       Envelope:
         xml:
-          namespace: "http://schemas.xmlsoap.org/soap/envelope/"
-          prefix: "soapenv"
-        type: "object"
+          namespace: 'http://schemas.xmlsoap.org/soap/envelope/'
+          prefix: soapenv
+        type: object
         properties:
           Header:
-            $ref: "#/definitions/AddHeader"
+            $ref: '#/definitions/AddHeader'
           Body:
             xml:
-              namespace: "http://schemas.xmlsoap.org/soap/envelope/"
-              prefix: "soapenv"
-            type: "object"
+              namespace: 'http://schemas.xmlsoap.org/soap/envelope/'
+              prefix: soapenv
+            type: object
             properties:
               Add:
-                $ref: "#/definitions/Add_element_tns"
+                $ref: '#/definitions/Add_element_tns'
             required:
-            - "Add"
+              - Add
         required:
-        - "Body"
+          - Body
     required:
-    - "Envelope"
+      - Envelope
     x-ibm-schema:
-      wsdl-port: "{http://tempuri.org/}CalculatorSoap"
-      wsdl-operation: "Add"
-      wsdl-message-direction-or-name: "AddRequest"
-    example: "\n<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\
-      >\n <soapenv:Header>\n  <!-- The Security element should be removed if WS-Security\
-      \ is not enabled on the SOAP target-url -->\n  <wsse:Security xmlns:wsse=\"\
-      http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"\
-      \ xmlns:wsu=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd\"\
-      >\n   <wsse:UsernameToken>\n    <wsse:Username>string</wsse:Username>\n    <wsse:Password>string</wsse:Password>\n\
-      \    <wsse:Nonce EncodingType=\"string\">string</wsse:Nonce>\n    <wsu:Created>string</wsu:Created>\n\
-      \   </wsse:UsernameToken>\n   <wsu:Timestamp wsu:Id=\"string\">\n    <wsu:Created>string</wsu:Created>\n\
-      \    <wsu:Expires>string</wsu:Expires>\n   </wsu:Timestamp>\n  </wsse:Security>\n\
-      \ </soapenv:Header>\n <soapenv:Body>\n  <tns:Add xmlns:tns=\"http://tempuri.org/\"\
-      ><!-- mandatory -->\n   <tns:intA><!-- mandatory -->3</tns:intA>\n   <tns:intB><!--\
-      \ mandatory -->3</tns:intB>\n  </tns:Add>\n </soapenv:Body>\n</soapenv:Envelope>"
+      wsdl-port: '{http://tempuri.org/}CalculatorSoap'
+      wsdl-operation: Add
+      wsdl-message-direction-or-name: AddRequest
+    example: |-
+
+      <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+       <soapenv:Header>
+        <!-- The Security element should be removed if WS-Security is not enabled on the SOAP target-url -->
+        <wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+         <wsse:UsernameToken>
+          <wsse:Username>string</wsse:Username>
+          <wsse:Password>string</wsse:Password>
+          <wsse:Nonce EncodingType="string">string</wsse:Nonce>
+          <wsu:Created>string</wsu:Created>
+         </wsse:UsernameToken>
+         <wsu:Timestamp wsu:Id="string">
+          <wsu:Created>string</wsu:Created>
+          <wsu:Expires>string</wsu:Expires>
+         </wsu:Timestamp>
+        </wsse:Security>
+       </soapenv:Header>
+       <soapenv:Body>
+        <tns:Add xmlns:tns="http://tempuri.org/"><!-- mandatory -->
+         <tns:intA><!-- mandatory -->3</tns:intA>
+         <tns:intB><!-- mandatory -->3</tns:intB>
+        </tns:Add>
+       </soapenv:Body>
+      </soapenv:Envelope>
   AddHeader:
-    description: "Input headers for wsdl operation Add"
-    type: "object"
+    description: Input headers for wsdl operation Add
+    type: object
     properties:
       Security:
-        $ref: "#/definitions/Security"
+        $ref: '#/definitions/Security'
   AddOutput:
-    description: "Output message for wsdl operation Add"
-    type: "object"
+    description: Output message for wsdl operation Add
+    type: object
     properties:
       Envelope:
         xml:
-          namespace: "http://schemas.xmlsoap.org/soap/envelope/"
-          prefix: "soapenv"
-        type: "object"
+          namespace: 'http://schemas.xmlsoap.org/soap/envelope/'
+          prefix: soapenv
+        type: object
         properties:
           Body:
             xml:
-              namespace: "http://schemas.xmlsoap.org/soap/envelope/"
-              prefix: "soapenv"
-            type: "object"
+              namespace: 'http://schemas.xmlsoap.org/soap/envelope/'
+              prefix: soapenv
+            type: object
             properties:
               AddResponse:
-                $ref: "#/definitions/AddResponse_element_tns"
+                $ref: '#/definitions/AddResponse_element_tns'
         required:
-        - "Body"
+          - Body
     required:
-    - "Envelope"
+      - Envelope
     x-ibm-schema:
-      wsdl-port: "{http://tempuri.org/}CalculatorSoap"
-      wsdl-operation: "Add"
-      wsdl-message-direction-or-name: "AddResponse"
-    example: "\n<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\
-      >\n <soapenv:Body>\n  <tns:AddResponse xmlns:tns=\"http://tempuri.org/\">\n\
-      \   <tns:AddResult><!-- mandatory -->3</tns:AddResult>\n  </tns:AddResponse>\n\
-      \ </soapenv:Body>\n</soapenv:Envelope>"
+      wsdl-port: '{http://tempuri.org/}CalculatorSoap'
+      wsdl-operation: Add
+      wsdl-message-direction-or-name: AddResponse
+    example: |-
+
+      <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+       <soapenv:Body>
+        <tns:AddResponse xmlns:tns="http://tempuri.org/">
+         <tns:AddResult><!-- mandatory -->3</tns:AddResult>
+        </tns:AddResponse>
+       </soapenv:Body>
+      </soapenv:Envelope>
   SubtractInput:
-    description: "Input message for wsdl operation Subtract"
-    type: "object"
+    description: Input message for wsdl operation Subtract
+    type: object
     properties:
       Envelope:
         xml:
-          namespace: "http://schemas.xmlsoap.org/soap/envelope/"
-          prefix: "soapenv"
-        type: "object"
+          namespace: 'http://schemas.xmlsoap.org/soap/envelope/'
+          prefix: soapenv
+        type: object
         properties:
           Header:
-            $ref: "#/definitions/SubtractHeader"
+            $ref: '#/definitions/SubtractHeader'
           Body:
             xml:
-              namespace: "http://schemas.xmlsoap.org/soap/envelope/"
-              prefix: "soapenv"
-            type: "object"
+              namespace: 'http://schemas.xmlsoap.org/soap/envelope/'
+              prefix: soapenv
+            type: object
             properties:
               Subtract:
-                $ref: "#/definitions/Subtract_element_tns"
+                $ref: '#/definitions/Subtract_element_tns'
             required:
-            - "Subtract"
+              - Subtract
         required:
-        - "Body"
+          - Body
     required:
-    - "Envelope"
+      - Envelope
     x-ibm-schema:
-      wsdl-port: "{http://tempuri.org/}CalculatorSoap"
-      wsdl-operation: "Subtract"
-      wsdl-message-direction-or-name: "SubtractRequest"
-    example: "\n<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\
-      >\n <soapenv:Header>\n  <!-- The Security element should be removed if WS-Security\
-      \ is not enabled on the SOAP target-url -->\n  <wsse:Security xmlns:wsse=\"\
-      http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"\
-      \ xmlns:wsu=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd\"\
-      >\n   <wsse:UsernameToken>\n    <wsse:Username>string</wsse:Username>\n    <wsse:Password>string</wsse:Password>\n\
-      \    <wsse:Nonce EncodingType=\"string\">string</wsse:Nonce>\n    <wsu:Created>string</wsu:Created>\n\
-      \   </wsse:UsernameToken>\n   <wsu:Timestamp wsu:Id=\"string\">\n    <wsu:Created>string</wsu:Created>\n\
-      \    <wsu:Expires>string</wsu:Expires>\n   </wsu:Timestamp>\n  </wsse:Security>\n\
-      \ </soapenv:Header>\n <soapenv:Body>\n  <tns:Subtract xmlns:tns=\"http://tempuri.org/\"\
-      ><!-- mandatory -->\n   <tns:intA><!-- mandatory -->3</tns:intA>\n   <tns:intB><!--\
-      \ mandatory -->3</tns:intB>\n  </tns:Subtract>\n </soapenv:Body>\n</soapenv:Envelope>"
+      wsdl-port: '{http://tempuri.org/}CalculatorSoap'
+      wsdl-operation: Subtract
+      wsdl-message-direction-or-name: SubtractRequest
+    example: |-
+
+      <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+       <soapenv:Header>
+        <!-- The Security element should be removed if WS-Security is not enabled on the SOAP target-url -->
+        <wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+         <wsse:UsernameToken>
+          <wsse:Username>string</wsse:Username>
+          <wsse:Password>string</wsse:Password>
+          <wsse:Nonce EncodingType="string">string</wsse:Nonce>
+          <wsu:Created>string</wsu:Created>
+         </wsse:UsernameToken>
+         <wsu:Timestamp wsu:Id="string">
+          <wsu:Created>string</wsu:Created>
+          <wsu:Expires>string</wsu:Expires>
+         </wsu:Timestamp>
+        </wsse:Security>
+       </soapenv:Header>
+       <soapenv:Body>
+        <tns:Subtract xmlns:tns="http://tempuri.org/"><!-- mandatory -->
+         <tns:intA><!-- mandatory -->3</tns:intA>
+         <tns:intB><!-- mandatory -->3</tns:intB>
+        </tns:Subtract>
+       </soapenv:Body>
+      </soapenv:Envelope>
   SubtractHeader:
-    description: "Input headers for wsdl operation Subtract"
-    type: "object"
+    description: Input headers for wsdl operation Subtract
+    type: object
     properties:
       Security:
-        $ref: "#/definitions/Security"
+        $ref: '#/definitions/Security'
     additionalProperties: false
   SubtractOutput:
-    description: "Output message for wsdl operation Subtract"
-    type: "object"
+    description: Output message for wsdl operation Subtract
+    type: object
     properties:
       Envelope:
         xml:
-          namespace: "http://schemas.xmlsoap.org/soap/envelope/"
-          prefix: "soapenv"
-        type: "object"
+          namespace: 'http://schemas.xmlsoap.org/soap/envelope/'
+          prefix: soapenv
+        type: object
         properties:
           Body:
             xml:
-              namespace: "http://schemas.xmlsoap.org/soap/envelope/"
-              prefix: "soapenv"
-            type: "object"
+              namespace: 'http://schemas.xmlsoap.org/soap/envelope/'
+              prefix: soapenv
+            type: object
             properties:
               SubtractResponse:
-                $ref: "#/definitions/SubtractResponse_element_tns"
+                $ref: '#/definitions/SubtractResponse_element_tns'
         required:
-        - "Body"
+          - Body
     required:
-    - "Envelope"
+      - Envelope
     x-ibm-schema:
-      wsdl-port: "{http://tempuri.org/}CalculatorSoap"
-      wsdl-operation: "Subtract"
-      wsdl-message-direction-or-name: "SubtractResponse"
-    example: "\n<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\
-      >\n <soapenv:Body>\n  <tns:SubtractResponse xmlns:tns=\"http://tempuri.org/\"\
-      >\n   <tns:SubtractResult><!-- mandatory -->3</tns:SubtractResult>\n  </tns:SubtractResponse>\n\
-      \ </soapenv:Body>\n</soapenv:Envelope>"
+      wsdl-port: '{http://tempuri.org/}CalculatorSoap'
+      wsdl-operation: Subtract
+      wsdl-message-direction-or-name: SubtractResponse
+    example: |-
+
+      <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+       <soapenv:Body>
+        <tns:SubtractResponse xmlns:tns="http://tempuri.org/">
+         <tns:SubtractResult><!-- mandatory -->3</tns:SubtractResult>
+        </tns:SubtractResponse>
+       </soapenv:Body>
+      </soapenv:Envelope>
   MultiplyInput:
-    description: "Input message for wsdl operation Multiply"
-    type: "object"
+    description: Input message for wsdl operation Multiply
+    type: object
     properties:
       Envelope:
         xml:
-          namespace: "http://schemas.xmlsoap.org/soap/envelope/"
-          prefix: "soapenv"
-        type: "object"
+          namespace: 'http://schemas.xmlsoap.org/soap/envelope/'
+          prefix: soapenv
+        type: object
         properties:
           Header:
-            $ref: "#/definitions/MultiplyHeader"
+            $ref: '#/definitions/MultiplyHeader'
           Body:
             xml:
-              namespace: "http://schemas.xmlsoap.org/soap/envelope/"
-              prefix: "soapenv"
-            type: "object"
+              namespace: 'http://schemas.xmlsoap.org/soap/envelope/'
+              prefix: soapenv
+            type: object
             properties:
               Multiply:
-                $ref: "#/definitions/Multiply_element_tns"
+                $ref: '#/definitions/Multiply_element_tns'
             required:
-            - "Multiply"
+              - Multiply
         required:
-        - "Body"
+          - Body
     required:
-    - "Envelope"
+      - Envelope
     x-ibm-schema:
-      wsdl-port: "{http://tempuri.org/}CalculatorSoap"
-      wsdl-operation: "Multiply"
-      wsdl-message-direction-or-name: "MultiplyRequest"
-    example: "\n<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\
-      >\n <soapenv:Header>\n  <!-- The Security element should be removed if WS-Security\
-      \ is not enabled on the SOAP target-url -->\n  <wsse:Security xmlns:wsse=\"\
-      http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"\
-      \ xmlns:wsu=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd\"\
-      >\n   <wsse:UsernameToken>\n    <wsse:Username>string</wsse:Username>\n    <wsse:Password>string</wsse:Password>\n\
-      \    <wsse:Nonce EncodingType=\"string\">string</wsse:Nonce>\n    <wsu:Created>string</wsu:Created>\n\
-      \   </wsse:UsernameToken>\n   <wsu:Timestamp wsu:Id=\"string\">\n    <wsu:Created>string</wsu:Created>\n\
-      \    <wsu:Expires>string</wsu:Expires>\n   </wsu:Timestamp>\n  </wsse:Security>\n\
-      \ </soapenv:Header>\n <soapenv:Body>\n  <tns:Multiply xmlns:tns=\"http://tempuri.org/\"\
-      ><!-- mandatory -->\n   <tns:intA><!-- mandatory -->3</tns:intA>\n   <tns:intB><!--\
-      \ mandatory -->3</tns:intB>\n  </tns:Multiply>\n </soapenv:Body>\n</soapenv:Envelope>"
+      wsdl-port: '{http://tempuri.org/}CalculatorSoap'
+      wsdl-operation: Multiply
+      wsdl-message-direction-or-name: MultiplyRequest
+    example: |-
+
+      <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+       <soapenv:Header>
+        <!-- The Security element should be removed if WS-Security is not enabled on the SOAP target-url -->
+        <wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+         <wsse:UsernameToken>
+          <wsse:Username>string</wsse:Username>
+          <wsse:Password>string</wsse:Password>
+          <wsse:Nonce EncodingType="string">string</wsse:Nonce>
+          <wsu:Created>string</wsu:Created>
+         </wsse:UsernameToken>
+         <wsu:Timestamp wsu:Id="string">
+          <wsu:Created>string</wsu:Created>
+          <wsu:Expires>string</wsu:Expires>
+         </wsu:Timestamp>
+        </wsse:Security>
+       </soapenv:Header>
+       <soapenv:Body>
+        <tns:Multiply xmlns:tns="http://tempuri.org/"><!-- mandatory -->
+         <tns:intA><!-- mandatory -->3</tns:intA>
+         <tns:intB><!-- mandatory -->3</tns:intB>
+        </tns:Multiply>
+       </soapenv:Body>
+      </soapenv:Envelope>
   MultiplyHeader:
-    description: "Input headers for wsdl operation Multiply"
-    type: "object"
+    description: Input headers for wsdl operation Multiply
+    type: object
     properties:
       Security:
-        $ref: "#/definitions/Security"
+        $ref: '#/definitions/Security'
   MultiplyOutput:
-    description: "Output message for wsdl operation Multiply"
-    type: "object"
+    description: Output message for wsdl operation Multiply
+    type: object
     properties:
       Envelope:
         xml:
-          namespace: "http://schemas.xmlsoap.org/soap/envelope/"
-          prefix: "soapenv"
-        type: "object"
+          namespace: 'http://schemas.xmlsoap.org/soap/envelope/'
+          prefix: soapenv
+        type: object
         properties:
           Body:
             xml:
-              namespace: "http://schemas.xmlsoap.org/soap/envelope/"
-              prefix: "soapenv"
-            type: "object"
+              namespace: 'http://schemas.xmlsoap.org/soap/envelope/'
+              prefix: soapenv
+            type: object
             properties:
               MultiplyResponse:
-                $ref: "#/definitions/MultiplyResponse_element_tns"
+                $ref: '#/definitions/MultiplyResponse_element_tns'
         required:
-        - "Body"
+          - Body
     required:
-    - "Envelope"
+      - Envelope
     x-ibm-schema:
-      wsdl-port: "{http://tempuri.org/}CalculatorSoap"
-      wsdl-operation: "Multiply"
-      wsdl-message-direction-or-name: "MultiplyResponse"
-    example: "\n<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\
-      >\n <soapenv:Body>\n  <tns:MultiplyResponse xmlns:tns=\"http://tempuri.org/\"\
-      >\n   <tns:MultiplyResult><!-- mandatory -->3</tns:MultiplyResult>\n  </tns:MultiplyResponse>\n\
-      \ </soapenv:Body>\n</soapenv:Envelope>"
+      wsdl-port: '{http://tempuri.org/}CalculatorSoap'
+      wsdl-operation: Multiply
+      wsdl-message-direction-or-name: MultiplyResponse
+    example: |-
+
+      <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+       <soapenv:Body>
+        <tns:MultiplyResponse xmlns:tns="http://tempuri.org/">
+         <tns:MultiplyResult><!-- mandatory -->3</tns:MultiplyResult>
+        </tns:MultiplyResponse>
+       </soapenv:Body>
+      </soapenv:Envelope>
   DivideInput:
-    description: "Input message for wsdl operation Divide"
-    type: "object"
+    description: Input message for wsdl operation Divide
+    type: object
     properties:
       Envelope:
         xml:
-          namespace: "http://schemas.xmlsoap.org/soap/envelope/"
-          prefix: "soapenv"
-        type: "object"
+          namespace: 'http://schemas.xmlsoap.org/soap/envelope/'
+          prefix: soapenv
+        type: object
         properties:
           Header:
-            $ref: "#/definitions/DivideHeader"
+            $ref: '#/definitions/DivideHeader'
           Body:
             xml:
-              namespace: "http://schemas.xmlsoap.org/soap/envelope/"
-              prefix: "soapenv"
-            type: "object"
+              namespace: 'http://schemas.xmlsoap.org/soap/envelope/'
+              prefix: soapenv
+            type: object
             properties:
               Divide:
-                $ref: "#/definitions/Divide_element_tns"
+                $ref: '#/definitions/Divide_element_tns'
             required:
-            - "Divide"
+              - Divide
         required:
-        - "Body"
+          - Body
     required:
-    - "Envelope"
+      - Envelope
     x-ibm-schema:
-      wsdl-port: "{http://tempuri.org/}CalculatorSoap"
-      wsdl-operation: "Divide"
-      wsdl-message-direction-or-name: "DivideRequest"
-    example: "\n<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\
-      >\n <soapenv:Header>\n  <!-- The Security element should be removed if WS-Security\
-      \ is not enabled on the SOAP target-url -->\n  <wsse:Security xmlns:wsse=\"\
-      http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"\
-      \ xmlns:wsu=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd\"\
-      >\n   <wsse:UsernameToken>\n    <wsse:Username>string</wsse:Username>\n    <wsse:Password>string</wsse:Password>\n\
-      \    <wsse:Nonce EncodingType=\"string\">string</wsse:Nonce>\n    <wsu:Created>string</wsu:Created>\n\
-      \   </wsse:UsernameToken>\n   <wsu:Timestamp wsu:Id=\"string\">\n    <wsu:Created>string</wsu:Created>\n\
-      \    <wsu:Expires>string</wsu:Expires>\n   </wsu:Timestamp>\n  </wsse:Security>\n\
-      \ </soapenv:Header>\n <soapenv:Body>\n  <tns:Divide xmlns:tns=\"http://tempuri.org/\"\
-      ><!-- mandatory -->\n   <tns:intA><!-- mandatory -->3</tns:intA>\n   <tns:intB><!--\
-      \ mandatory -->3</tns:intB>\n  </tns:Divide>\n </soapenv:Body>\n</soapenv:Envelope>"
+      wsdl-port: '{http://tempuri.org/}CalculatorSoap'
+      wsdl-operation: Divide
+      wsdl-message-direction-or-name: DivideRequest
+    example: |-
+
+      <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+       <soapenv:Header>
+        <!-- The Security element should be removed if WS-Security is not enabled on the SOAP target-url -->
+        <wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+         <wsse:UsernameToken>
+          <wsse:Username>string</wsse:Username>
+          <wsse:Password>string</wsse:Password>
+          <wsse:Nonce EncodingType="string">string</wsse:Nonce>
+          <wsu:Created>string</wsu:Created>
+         </wsse:UsernameToken>
+         <wsu:Timestamp wsu:Id="string">
+          <wsu:Created>string</wsu:Created>
+          <wsu:Expires>string</wsu:Expires>
+         </wsu:Timestamp>
+        </wsse:Security>
+       </soapenv:Header>
+       <soapenv:Body>
+        <tns:Divide xmlns:tns="http://tempuri.org/"><!-- mandatory -->
+         <tns:intA><!-- mandatory -->3</tns:intA>
+         <tns:intB><!-- mandatory -->3</tns:intB>
+        </tns:Divide>
+       </soapenv:Body>
+      </soapenv:Envelope>
   SquareInput:
-    description: "Input message for wsdl operation Square"
-    type: "object"
+    description: Input message for wsdl operation Square
+    type: object
     properties:
       Envelope:
         xml:
-          namespace: "http://schemas.xmlsoap.org/soap/envelope/"
-          prefix: "soapenv"
-        type: "object"
+          namespace: 'http://schemas.xmlsoap.org/soap/envelope/'
+          prefix: soapenv
+        type: object
         properties:
           Header:
-            $ref: "#/definitions/SquareHeader"
+            $ref: '#/definitions/SquareHeader'
           Body:
             xml:
-              namespace: "http://schemas.xmlsoap.org/soap/envelope/"
-              prefix: "soapenv"
-            type: "object"
+              namespace: 'http://schemas.xmlsoap.org/soap/envelope/'
+              prefix: soapenv
+            type: object
             properties:
               Square:
-                $ref: "#/definitions/Square_element_tns"
+                $ref: '#/definitions/Square_element_tns'
             required:
-            - "Square"
+              - Square
         required:
-        - "Body"
+          - Body
     required:
-    - "Envelope"
+      - Envelope
     x-ibm-schema:
-      wsdl-port: "{http://tempuri.org/}CalculatorSoap"
-      wsdl-operation: "Square"
-      wsdl-message-direction-or-name: "SquareRequest"
-    example: "\n<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\
-      >\n <soapenv:Header>\n  <!-- The Security element should be removed if WS-Security\
-      \ is not enabled on the SOAP target-url -->\n  <wsse:Security xmlns:wsse=\"\
-      http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\"\
-      \ xmlns:wsu=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd\"\
-      >\n   <wsse:UsernameToken>\n    <wsse:Username>string</wsse:Username>\n    <wsse:Password>string</wsse:Password>\n\
-      \    <wsse:Nonce EncodingType=\"string\">string</wsse:Nonce>\n    <wsu:Created>string</wsu:Created>\n\
-      \   </wsse:UsernameToken>\n   <wsu:Timestamp wsu:Id=\"string\">\n    <wsu:Created>string</wsu:Created>\n\
-      \    <wsu:Expires>string</wsu:Expires>\n   </wsu:Timestamp>\n  </wsse:Security>\n\
-      \ </soapenv:Header>\n <soapenv:Body>\n  <tns:Square xmlns:tns=\"http://tempuri.org/\"\
-      ><!-- mandatory -->\n   <tns:intA><!-- mandatory -->3</tns:intA>\n   <tns:intB><!--\
-      \ mandatory -->3</tns:intB>\n  </tns:Square>\n </soapenv:Body>\n</soapenv:Envelope>"
+      wsdl-port: '{http://tempuri.org/}CalculatorSoap'
+      wsdl-operation: Square
+      wsdl-message-direction-or-name: SquareRequest
+    example: |-
+
+      <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+       <soapenv:Header>
+        <!-- The Security element should be removed if WS-Security is not enabled on the SOAP target-url -->
+        <wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+         <wsse:UsernameToken>
+          <wsse:Username>string</wsse:Username>
+          <wsse:Password>string</wsse:Password>
+          <wsse:Nonce EncodingType="string">string</wsse:Nonce>
+          <wsu:Created>string</wsu:Created>
+         </wsse:UsernameToken>
+         <wsu:Timestamp wsu:Id="string">
+          <wsu:Created>string</wsu:Created>
+          <wsu:Expires>string</wsu:Expires>
+         </wsu:Timestamp>
+        </wsse:Security>
+       </soapenv:Header>
+       <soapenv:Body>
+        <tns:Square xmlns:tns="http://tempuri.org/"><!-- mandatory -->
+         <tns:intA><!-- mandatory -->3</tns:intA>
+        </tns:Square>
+       </soapenv:Body>
+      </soapenv:Envelope>
   DivideHeader:
-    description: "Input headers for wsdl operation Divide"
-    type: "object"
+    description: Input headers for wsdl operation Divide
+    type: object
     properties:
       Security:
-        $ref: "#/definitions/Security"
+        $ref: '#/definitions/Security'
   SquareHeader:
-    description: "Input headers for wsdl operation Square"
-    type: "object"
+    description: Input headers for wsdl operation Square
+    type: object
     properties:
       Security:
-        $ref: "#/definitions/Security"
+        $ref: '#/definitions/Security'
   DivideOutput:
-    description: "Output message for wsdl operation Divide"
-    type: "object"
+    description: Output message for wsdl operation Divide
+    type: object
     properties:
       Envelope:
         xml:
-          namespace: "http://schemas.xmlsoap.org/soap/envelope/"
-          prefix: "soapenv"
-        type: "object"
+          namespace: 'http://schemas.xmlsoap.org/soap/envelope/'
+          prefix: soapenv
+        type: object
         properties:
           Body:
             xml:
-              namespace: "http://schemas.xmlsoap.org/soap/envelope/"
-              prefix: "soapenv"
-            type: "object"
+              namespace: 'http://schemas.xmlsoap.org/soap/envelope/'
+              prefix: soapenv
+            type: object
             properties:
               DivideResponse:
-                $ref: "#/definitions/DivideResponse_element_tns"
+                $ref: '#/definitions/DivideResponse_element_tns'
         required:
-        - "Body"
+          - Body
     required:
-    - "Envelope"
+      - Envelope
     x-ibm-schema:
-      wsdl-port: "{http://tempuri.org/}CalculatorSoap"
-      wsdl-operation: "Divide"
-      wsdl-message-direction-or-name: "DivideResponse"
-    example: "\n<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\
-      >\n <soapenv:Body>\n  <tns:DivideResponse xmlns:tns=\"http://tempuri.org/\"\
-      >\n   <tns:DivideResult><!-- mandatory -->3</tns:DivideResult>\n  </tns:DivideResponse>\n\
-      \ </soapenv:Body>\n</soapenv:Envelope>"
+      wsdl-port: '{http://tempuri.org/}CalculatorSoap'
+      wsdl-operation: Divide
+      wsdl-message-direction-or-name: DivideResponse
+    example: |-
+
+      <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+       <soapenv:Body>
+        <tns:DivideResponse xmlns:tns="http://tempuri.org/">
+         <tns:DivideResult><!-- mandatory -->3</tns:DivideResult>
+        </tns:DivideResponse>
+       </soapenv:Body>
+      </soapenv:Envelope>
   SquareOutput:
-    description: "Output message for wsdl operation Square"
-    type: "object"
+    description: Output message for wsdl operation Square
+    type: object
     properties:
       Envelope:
         xml:
-          namespace: "http://schemas.xmlsoap.org/soap/envelope/"
-          prefix: "soapenv"
-        type: "object"
+          namespace: 'http://schemas.xmlsoap.org/soap/envelope/'
+          prefix: soapenv
+        type: object
         properties:
           Body:
             xml:
-              namespace: "http://schemas.xmlsoap.org/soap/envelope/"
-              prefix: "soapenv"
-            type: "object"
+              namespace: 'http://schemas.xmlsoap.org/soap/envelope/'
+              prefix: soapenv
+            type: object
             properties:
               SquareResponse:
-                $ref: "#/definitions/SquareResponse_element_tns"
+                $ref: '#/definitions/SquareResponse_element_tns'
         required:
-        - "Body"
+          - Body
     required:
-    - "Envelope"
+      - Envelope
     x-ibm-schema:
-      wsdl-port: "{http://tempuri.org/}CalculatorSoap"
-      wsdl-operation: "Square"
-      wsdl-message-direction-or-name: "SquareResponse"
-    example: "\n<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\
-      >\n <soapenv:Body>\n  <tns:SquareResponse xmlns:tns=\"http://tempuri.org/\"\
-      >\n   <tns:SquareResult><!-- mandatory -->3</tns:SquareResult>\n  </tns:SquareResponse>\n\
-      \ </soapenv:Body>\n</soapenv:Envelope>"
+      wsdl-port: '{http://tempuri.org/}CalculatorSoap'
+      wsdl-operation: Square
+      wsdl-message-direction-or-name: SquareResponse
+    example: |-
+
+      <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+       <soapenv:Body>
+        <tns:SquareResponse xmlns:tns="http://tempuri.org/">
+         <tns:SquareResult><!-- mandatory -->3</tns:SquareResult>
+        </tns:SquareResponse>
+       </soapenv:Body>
+      </soapenv:Envelope>
   Add_element_tns:
     xml:
-      namespace: "http://tempuri.org/"
-      prefix: "tns"
-      name: "Add"
-    type: "object"
+      namespace: 'http://tempuri.org/'
+      prefix: tns
+      name: Add
+    type: object
     properties:
       intA:
         xml:
-          namespace: "http://tempuri.org/"
-          prefix: "tns"
-        type: "integer"
-        format: "int32"
+          namespace: 'http://tempuri.org/'
+          prefix: tns
+        type: integer
+        format: int32
       intB:
         xml:
-          namespace: "http://tempuri.org/"
-          prefix: "tns"
-        type: "integer"
-        format: "int32"
+          namespace: 'http://tempuri.org/'
+          prefix: tns
+        type: integer
+        format: int32
     required:
-    - "intA"
-    - "intB"
-    example: "\n<tns:Add xmlns:tns=\"http://tempuri.org/\">\n <tns:intA><!-- mandatory\
-      \ -->3</tns:intA>\n <tns:intB><!-- mandatory -->3</tns:intB>\n</tns:Add>"
+      - intA
+      - intB
+    example: |-
+
+      <tns:Add xmlns:tns="http://tempuri.org/">
+       <tns:intA><!-- mandatory -->3</tns:intA>
+       <tns:intB><!-- mandatory -->3</tns:intB>
+      </tns:Add>
   AddResponse_element_tns:
     xml:
-      namespace: "http://tempuri.org/"
-      prefix: "tns"
-      name: "AddResponse"
-    type: "object"
+      namespace: 'http://tempuri.org/'
+      prefix: tns
+      name: AddResponse
+    type: object
     properties:
       AddResult:
         xml:
-          namespace: "http://tempuri.org/"
-          prefix: "tns"
-        type: "integer"
-        format: "int32"
+          namespace: 'http://tempuri.org/'
+          prefix: tns
+        type: integer
+        format: int32
     required:
-    - "AddResult"
-    example: "\n<tns:AddResponse xmlns:tns=\"http://tempuri.org/\">\n <tns:AddResult><!--\
-      \ mandatory -->3</tns:AddResult>\n</tns:AddResponse>"
+      - AddResult
+    example: |-
+
+      <tns:AddResponse xmlns:tns="http://tempuri.org/">
+       <tns:AddResult><!-- mandatory -->3</tns:AddResult>
+      </tns:AddResponse>
   Subtract_element_tns:
     xml:
-      namespace: "http://tempuri.org/"
-      prefix: "tns"
-      name: "Subtract"
-    type: "object"
+      namespace: 'http://tempuri.org/'
+      prefix: tns
+      name: Subtract
+    type: object
     properties:
       intA:
         xml:
-          namespace: "http://tempuri.org/"
-          prefix: "tns"
-        type: "integer"
-        format: "int32"
+          namespace: 'http://tempuri.org/'
+          prefix: tns
+        type: integer
+        format: int32
       intB:
         xml:
-          namespace: "http://tempuri.org/"
-          prefix: "tns"
-        type: "integer"
-        format: "int32"
+          namespace: 'http://tempuri.org/'
+          prefix: tns
+        type: integer
+        format: int32
     required:
-    - "intA"
-    - "intB"
-    example: "\n<tns:Subtract xmlns:tns=\"http://tempuri.org/\">\n <tns:intA><!--\
-      \ mandatory -->3</tns:intA>\n <tns:intB><!-- mandatory -->3</tns:intB>\n</tns:Subtract>"
+      - intA
+      - intB
+    example: |-
+
+      <tns:Subtract xmlns:tns="http://tempuri.org/">
+       <tns:intA><!-- mandatory -->3</tns:intA>
+       <tns:intB><!-- mandatory -->3</tns:intB>
+      </tns:Subtract>
   SubtractResponse_element_tns:
     xml:
-      namespace: "http://tempuri.org/"
-      prefix: "tns"
-      name: "SubtractResponse"
-    type: "object"
+      namespace: 'http://tempuri.org/'
+      prefix: tns
+      name: SubtractResponse
+    type: object
     properties:
       SubtractResult:
         xml:
-          namespace: "http://tempuri.org/"
-          prefix: "tns"
-        type: "integer"
-        format: "int32"
+          namespace: 'http://tempuri.org/'
+          prefix: tns
+        type: integer
+        format: int32
     required:
-    - "SubtractResult"
-    example: "\n<tns:SubtractResponse xmlns:tns=\"http://tempuri.org/\">\n <tns:SubtractResult><!--\
-      \ mandatory -->3</tns:SubtractResult>\n</tns:SubtractResponse>"
+      - SubtractResult
+    example: |-
+
+      <tns:SubtractResponse xmlns:tns="http://tempuri.org/">
+       <tns:SubtractResult><!-- mandatory -->3</tns:SubtractResult>
+      </tns:SubtractResponse>
   Multiply_element_tns:
     xml:
-      namespace: "http://tempuri.org/"
-      prefix: "tns"
-      name: "Multiply"
-    type: "object"
+      namespace: 'http://tempuri.org/'
+      prefix: tns
+      name: Multiply
+    type: object
     properties:
       intA:
         xml:
-          namespace: "http://tempuri.org/"
-          prefix: "tns"
-        type: "integer"
-        format: "int32"
+          namespace: 'http://tempuri.org/'
+          prefix: tns
+        type: integer
+        format: int32
       intB:
         xml:
-          namespace: "http://tempuri.org/"
-          prefix: "tns"
-        type: "integer"
-        format: "int32"
+          namespace: 'http://tempuri.org/'
+          prefix: tns
+        type: integer
+        format: int32
     required:
-    - "intA"
-    - "intB"
-    example: "\n<tns:Multiply xmlns:tns=\"http://tempuri.org/\">\n <tns:intA><!--\
-      \ mandatory -->3</tns:intA>\n <tns:intB><!-- mandatory -->3</tns:intB>\n</tns:Multiply>"
+      - intA
+      - intB
+    example: |-
+
+      <tns:Multiply xmlns:tns="http://tempuri.org/">
+       <tns:intA><!-- mandatory -->3</tns:intA>
+       <tns:intB><!-- mandatory -->3</tns:intB>
+      </tns:Multiply>
   MultiplyResponse_element_tns:
     xml:
-      namespace: "http://tempuri.org/"
-      prefix: "tns"
-      name: "MultiplyResponse"
-    type: "object"
+      namespace: 'http://tempuri.org/'
+      prefix: tns
+      name: MultiplyResponse
+    type: object
     properties:
       MultiplyResult:
         xml:
-          namespace: "http://tempuri.org/"
-          prefix: "tns"
-        type: "integer"
-        format: "int32"
+          namespace: 'http://tempuri.org/'
+          prefix: tns
+        type: integer
+        format: int32
     required:
-    - "MultiplyResult"
-    example: "\n<tns:MultiplyResponse xmlns:tns=\"http://tempuri.org/\">\n <tns:MultiplyResult><!--\
-      \ mandatory -->3</tns:MultiplyResult>\n</tns:MultiplyResponse>"
+      - MultiplyResult
+    example: |-
+
+      <tns:MultiplyResponse xmlns:tns="http://tempuri.org/">
+       <tns:MultiplyResult><!-- mandatory -->3</tns:MultiplyResult>
+      </tns:MultiplyResponse>
   Divide_element_tns:
     xml:
-      namespace: "http://tempuri.org/"
-      prefix: "tns"
-      name: "Divide"
-    type: "object"
+      namespace: 'http://tempuri.org/'
+      prefix: tns
+      name: Divide
+    type: object
     properties:
       intA:
         xml:
-          namespace: "http://tempuri.org/"
-          prefix: "tns"
-        type: "integer"
-        format: "int32"
+          namespace: 'http://tempuri.org/'
+          prefix: tns
+        type: integer
+        format: int32
       intB:
         xml:
-          namespace: "http://tempuri.org/"
-          prefix: "tns"
-        type: "integer"
-        format: "int32"
+          namespace: 'http://tempuri.org/'
+          prefix: tns
+        type: integer
+        format: int32
     required:
-    - "intA"
-    - "intB"
-    example: "\n<tns:Divide xmlns:tns=\"http://tempuri.org/\">\n <tns:intA><!-- mandatory\
-      \ -->3</tns:intA>\n <tns:intB><!-- mandatory -->3</tns:intB>\n</tns:Divide>"
+      - intA
+      - intB
+    example: |-
+
+      <tns:Divide xmlns:tns="http://tempuri.org/">
+       <tns:intA><!-- mandatory -->3</tns:intA>
+       <tns:intB><!-- mandatory -->3</tns:intB>
+      </tns:Divide>
   DivideResponse_element_tns:
     xml:
-      namespace: "http://tempuri.org/"
-      prefix: "tns"
-      name: "DivideResponse"
-    type: "object"
+      namespace: 'http://tempuri.org/'
+      prefix: tns
+      name: DivideResponse
+    type: object
     properties:
       DivideResult:
         xml:
-          namespace: "http://tempuri.org/"
-          prefix: "tns"
-        type: "integer"
-        format: "int32"
+          namespace: 'http://tempuri.org/'
+          prefix: tns
+        type: integer
+        format: int32
     required:
-    - "DivideResult"
-    example: "\n<tns:DivideResponse xmlns:tns=\"http://tempuri.org/\">\n <tns:DivideResult><!--\
-      \ mandatory -->3</tns:DivideResult>\n</tns:DivideResponse>"
+      - DivideResult
+    example: |-
+
+      <tns:DivideResponse xmlns:tns="http://tempuri.org/">
+       <tns:DivideResult><!-- mandatory -->3</tns:DivideResult>
+      </tns:DivideResponse>
   SquareResponse_element_tns:
     xml:
-      namespace: "http://tempuri.org/"
-      prefix: "tns"
-      name: "SquareResponse"
-    type: "object"
+      namespace: 'http://tempuri.org/'
+      prefix: tns
+      name: SquareResponse
+    type: object
     properties:
       SquareResult:
         xml:
-          namespace: "http://tempuri.org/"
-          prefix: "tns"
-        type: "integer"
-        format: "int32"
+          namespace: 'http://tempuri.org/'
+          prefix: tns
+        type: integer
+        format: int32
     required:
-    - "SquareResult"
-    example: "\n<tns:SquareResponse xmlns:tns=\"http://tempuri.org/\">\n <tns:SquareResult><!--\
-      \ mandatory -->3</tns:SquareResult>\n</tns:SquareResponse>"
+      - SquareResult
+    example: |-
+
+      <tns:SquareResponse xmlns:tns="http://tempuri.org/">
+       <tns:SquareResult><!-- mandatory -->3</tns:SquareResult>
+      </tns:SquareResponse>
   Square_element_tns:
     xml:
-      namespace: "http://tempuri.org/"
-      prefix: "tns"
-      name: "Square"
-    type: "object"
+      namespace: 'http://tempuri.org/'
+      prefix: tns
+      name: Square
+    type: object
     properties:
       intA:
         xml:
-          namespace: "http://tempuri.org/"
-          prefix: "tns"
-        type: "integer"
-        format: "int32"
+          namespace: 'http://tempuri.org/'
+          prefix: tns
+        type: integer
+        format: int32
     required:
-    - "intA"
-    example: "\n<tns:Square xmlns:tns=\"http://tempuri.org/\">\n <tns:intA><!-- mandatory\
-      \ -->3</tns:intA>\n</tns:Square>"
+      - intA
+    example: |-
+
+      <tns:Square xmlns:tns="http://tempuri.org/">
+       <tns:intA><!-- mandatory -->3</tns:intA>
+      </tns:Square>
